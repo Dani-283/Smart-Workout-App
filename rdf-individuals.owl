@@ -1,0 +1,819 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#"
+     xml:base="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:untitled-ontology-3="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#"
+     xmlns:untitled-ontology-8="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#hasPosition -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#hasPosition">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Exercise"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Position"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#primaryMuscle -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#primaryMuscle">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Exercise"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#secondaryMuscle -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#secondaryMuscle">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Exercise"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#usesEquipment -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#usesEquipment">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Exercise"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Equipment"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#usesLimbs -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#usesLimbs">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Exercise"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Limbs"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Equipment -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Equipment"/>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Exercise -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Exercise">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#primaryMuscle"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#secondaryMuscle"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#hasPosition"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Position"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#usesEquipment"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Equipment"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#usesLimbs"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Limbs"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Limbs -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Limbs"/>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Position -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Position"/>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Compound -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Compound">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Exercise"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Isolation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Hip_hinge -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Hip_hinge">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Compound"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Horizontal_pull -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Horizontal_pull">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Compound"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Horizontal_push -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Horizontal_push">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Compound"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Isolation -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Isolation">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Exercise"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Squat_pattern -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Squat_pattern">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Compound"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Vertical_pull -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Vertical_pull">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Compound"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Vertical_push -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Vertical_push">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Compound"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Abs -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Abs">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Anterior_delts -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Anterior_delts">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Barbell -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Barbell">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Equipment"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Barbell_row -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Barbell_row">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Horizontal_pull"/>
+        <untitled-ontology-3:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bent_over"/>
+        <primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Upper_back"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bicep"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Lats"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Rear_delts"/>
+        <usesEquipment rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Barbell"/>
+        <usesLimbs rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bilateral"/>
+        <rdfs:label>Barbell row</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Barbell_squat -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Barbell_squat">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Squat_pattern"/>
+        <untitled-ontology-3:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Standing"/>
+        <primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Quadriceps"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Abs"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Glutes"/>
+        <usesEquipment rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Barbell"/>
+        <usesLimbs rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bilateral"/>
+        <rdfs:label>Barbell squat</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bench_press -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bench_press">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Horizontal_push"/>
+        <untitled-ontology-3:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Laying"/>
+        <primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Chest"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Anterior_delts"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Tricep"/>
+        <usesEquipment rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Barbell"/>
+        <usesLimbs rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bilateral"/>
+        <rdfs:label>Bench press</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bent_over -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bent_over">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Position"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bicep -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bicep">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bilateral -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bilateral">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Limbs"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bodyweight -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bodyweight">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Equipment"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bulgarian_split_squat -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bulgarian_split_squat">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Squat_pattern"/>
+        <untitled-ontology-3:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Standing"/>
+        <primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Quadriceps"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Glutes"/>
+        <usesEquipment rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bodyweight"/>
+        <usesLimbs rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bilateral"/>
+        <rdfs:label>Bulgarian split squat</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Cable_lateral_raise -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Cable_lateral_raise">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Isolation"/>
+        <untitled-ontology-3:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Standing"/>
+        <primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Middle_delts"/>
+        <usesEquipment rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Machine"/>
+        <usesLimbs rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Unilateral"/>
+        <rdfs:label>Cable lateral raise</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Cable_overhead_extension -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Cable_overhead_extension">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Isolation"/>
+        <untitled-ontology-3:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Standing"/>
+        <primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Tricep"/>
+        <usesEquipment rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Machine"/>
+        <usesLimbs rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Unilateral"/>
+        <rdfs:label>Cable overhead extension</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Calf -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Calf">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Calf_raise -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Calf_raise">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Isolation"/>
+        <untitled-ontology-3:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Standing"/>
+        <primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Calf"/>
+        <usesEquipment rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bodyweight"/>
+        <usesLimbs rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bilateral"/>
+        <rdfs:label>Calf raise</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Chest -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Chest">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Deadlift -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Deadlift">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Hip_hinge"/>
+        <untitled-ontology-3:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bent_over"/>
+        <primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Hamstrings"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Glutes"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Upper_back"/>
+        <usesEquipment rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Barbell"/>
+        <usesLimbs rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bilateral"/>
+        <rdfs:label>Deadlift</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Dumbbell -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Dumbbell">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Equipment"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Dumbbell_Shoulder_press -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Dumbbell_Shoulder_press">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Vertical_push"/>
+        <untitled-ontology-3:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Seated"/>
+        <primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Anterior_delts"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Middle_delts"/>
+        <usesEquipment rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Dumbbell"/>
+        <usesLimbs rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Unilateral"/>
+        <rdfs:label>Dumbbell shoulder press</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Dumbbell_press -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Dumbbell_press">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Horizontal_push"/>
+        <untitled-ontology-3:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Laying"/>
+        <primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Chest"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Anterior_delts"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Tricep"/>
+        <usesEquipment rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Dumbbell"/>
+        <usesLimbs rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Unilateral"/>
+        <rdfs:label>Dumbbell press</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Dumbell_curl_seated -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Dumbell_curl_seated">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Isolation"/>
+        <untitled-ontology-3:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Seated"/>
+        <primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bicep"/>
+        <usesEquipment rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Dumbbell"/>
+        <usesLimbs rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Unilateral"/>
+        <rdfs:label>Dumbbell curl seated</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Dumbell_row -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Dumbell_row">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Horizontal_pull"/>
+        <untitled-ontology-3:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bent_over"/>
+        <primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Upper_back"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bicep"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Lats"/>
+        <usesEquipment rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Dumbbell"/>
+        <usesLimbs rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Unilateral"/>
+        <rdfs:label>Dumbbell row</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Glutes -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Glutes">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Hamstrings -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Hamstrings">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Hanging -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Hanging">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Position"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Hip_thrust -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Hip_thrust">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Hip_hinge"/>
+        <untitled-ontology-3:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Laying"/>
+        <primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Glutes"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Hamstrings"/>
+        <usesEquipment rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Barbell"/>
+        <usesLimbs rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bilateral"/>
+        <rdfs:label>Hip thrust</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Incline_Bench_press -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Incline_Bench_press">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Vertical_push"/>
+        <untitled-ontology-3:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Laying"/>
+        <primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Upper_chest"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Anterior_delts"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Chest"/>
+        <usesEquipment rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Barbell"/>
+        <usesLimbs rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bilateral"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#LatPulldown -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#LatPulldown">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Vertical_pull"/>
+        <untitled-ontology-3:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Seated"/>
+        <primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Lats"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bicep"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Upper_back"/>
+        <usesEquipment rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Machine"/>
+        <usesLimbs rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bilateral"/>
+        <rdfs:label>Lat pulldown</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Lats -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Lats">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Laying -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Laying">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Position"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Leg_curl -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Leg_curl">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Isolation"/>
+        <untitled-ontology-3:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Laying"/>
+        <primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Hamstrings"/>
+        <usesEquipment rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Machine"/>
+        <usesLimbs rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bilateral"/>
+        <rdfs:label>Leg curl</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Leg_extension -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Leg_extension">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Isolation"/>
+        <untitled-ontology-3:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Seated"/>
+        <primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Quadriceps"/>
+        <usesEquipment rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Machine"/>
+        <usesLimbs rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bilateral"/>
+        <rdfs:label>Leg extension</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Leg_press -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Leg_press">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Squat_pattern"/>
+        <untitled-ontology-3:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Laying"/>
+        <primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Quadriceps"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Glutes"/>
+        <usesEquipment rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Machine"/>
+        <usesLimbs rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bilateral"/>
+        <rdfs:label>Leg press</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Machine -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Machine">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Equipment"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Middle_delts -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Middle_delts">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#One_arm_cable_row -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#One_arm_cable_row">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Horizontal_pull"/>
+        <untitled-ontology-3:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Seated"/>
+        <primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Upper_back"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bicep"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Lats"/>
+        <usesEquipment rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Machine"/>
+        <usesLimbs rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Unilateral"/>
+        <rdfs:label>One arm cable row</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Plank -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Plank">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Position"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Pull_up -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Pull_up">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Vertical_pull"/>
+        <untitled-ontology-3:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Hanging"/>
+        <primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Lats"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bicep"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Upper_back"/>
+        <usesEquipment rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bodyweight"/>
+        <usesLimbs rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bilateral"/>
+        <rdfs:label>Pull up</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Push_up -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Push_up">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Horizontal_push"/>
+        <untitled-ontology-3:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Plank"/>
+        <primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Chest"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Anterior_delts"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Tricep"/>
+        <usesEquipment rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bodyweight"/>
+        <usesLimbs rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bilateral"/>
+        <rdfs:label>Push up</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Quadriceps -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Quadriceps">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Rear_delts -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Rear_delts">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Romanian_Deadlift -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Romanian_Deadlift">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Hip_hinge"/>
+        <untitled-ontology-3:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bent_over"/>
+        <primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Hamstrings"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Glutes"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Upper_back"/>
+        <usesEquipment rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Barbell"/>
+        <usesLimbs rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bilateral"/>
+        <rdfs:label>Romanian deadlift</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Seated -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Seated">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Position"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Standing -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Standing">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Position"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Tricep -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Tricep">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Unilateral -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Unilateral">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Limbs"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Upper_back -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Upper_back">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Upper_chest -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Upper_chest">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Weighted_Bodyweight -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Weighted_Bodyweight">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Equipment"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Weighted_push_up -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Weighted_push_up">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Horizontal_push"/>
+        <untitled-ontology-3:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Plank"/>
+        <primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Chest"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Anterior_delts"/>
+        <secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Tricep"/>
+        <usesEquipment rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Weighted_Bodyweight"/>
+        <usesLimbs rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Bilateral"/>
+        <rdfs:label>Weighted push up</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Equipment"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Exercise"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Limbs"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Position"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Equipment"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Limbs"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#Position"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Horizontal_push"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Isolation"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Squat_pattern"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Vertical_pull"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Hip_hinge"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Horizontal_pull"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Horizontal_push"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Squat_pattern"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Vertical_pull"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#Vertical_push"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
