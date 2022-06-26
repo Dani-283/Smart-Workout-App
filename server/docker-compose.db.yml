@@ -6,7 +6,7 @@ services:
     container_name: workout
     restart: always
     ports:
-      - 5432:5432
+      - 5433:5433
     env_file:
       - .env
     volumes:
@@ -14,4 +14,4 @@ services:
 
 volumes:
   postgres:
-    name: nest-db
+    name: workout-db
