@@ -6,18 +6,17 @@ import { PrismaService } from '../../common/services/prisma.service';
 export class WorkoutService {
   constructor(private prisma: PrismaService) {}
   public getByUser(userId: number) {
-    // return this.prisma.workout.findMany({ where: { userId } });
-    return {};
+    return this.prisma.workout.findMany({ where: { userId } });
   }
 
-  //   getCount(nftId): Promise<number> {
-  //     return this.prisma.like.count({ where: { nftId } });
-  //   }
-
-  //   create(like): Promise<Like> {
-  //     return this.prisma.like.create({ data: like });
-  //   }
-  //   delete(id): Promise<Like> {
-  //     return this.prisma.like.delete({ where: { id } });
-  //   }
+  public createWorkout(workout: Workout): Promise<Workout> {
+    return this.prisma.workout.create({
+      data: {
+        title: workout.title,
+        description: workout.description,
+        createdAt: workout.createdAt,
+        userId: workout.userId,
+      },
+    });
+  }
 }

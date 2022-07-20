@@ -13,7 +13,8 @@ export class ExerciseController {
 
   @Get(':id')
   async getExcercise(@Param() params): Promise<Exercise> {
-    return await this.exerciseService.getExercise(params.id);
+    const id = Number(params.id);
+    return await this.exerciseService.getExercise(id);
   }
 
   @Put()
