@@ -25,7 +25,7 @@ model Set {
   createdAt     DateTime @default(now())
   description   String?
   exercise      Exercise @relation(fields: [exerciseId], references: [id])
-  exerciseId    Int
+  exerciseId    String
   workout       Workout @relation(fields: [workoutId], references: [id])  
   workoutId     Int
   rir      Int?
@@ -34,9 +34,8 @@ model Set {
 }
 
 model Exercise {
-  id       Int      @id @default(autoincrement())
+  id       String      @id
   name     String
-  rdfName  String
   set      Set[]
 }
 

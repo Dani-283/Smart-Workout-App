@@ -3,9 +3,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { WorkoutModule } from './modules/workout/workout.module';
 import { ExerciseModule } from './modules/exercise/exercise.module';
+import { SetModule } from './modules/set/set.module';
 
 @Module({
-  imports: [WorkoutModule, ExerciseModule],
+  imports: [WorkoutModule, ExerciseModule, SetModule],
   controllers: [AppController],
   providers: [AppService],
 })

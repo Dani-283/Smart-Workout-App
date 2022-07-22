@@ -10,5 +10,6 @@ const requestConfig = {
 };
 
 const axiosInstance = axios.create(requestConfig);
+axiosInstance.interceptors.response.use((response) => response.data);
 
 export default axiosInstance;

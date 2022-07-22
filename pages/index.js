@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import Exercises from "../src/features/Exercises";
+import Overview from "@features/Overview/Overview";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
@@ -12,7 +13,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Exercises />
+      <Overview />
     </div>
   );
 }

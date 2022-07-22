@@ -1,27 +1,46 @@
-import useGetExercises from "../hooks/useGetExercises";
 import config from "@config";
 import useCountTargetMuscles from "hooks/useCountTargetMuscles";
 import { useQuery } from "react-query";
 import exerciseApi from "../api/exercise";
+import useGetSetsByWorkout from "hooks/useGetSetsByWorkout";
+import useGetUserWorkouts from "hooks/useGetUserWorkouts";
+import useGetWorkoutById from "hooks/useGetWorkoutById";
+import useGetSetsByWorkoutIds from "hooks/useGetSetsByWorkoutIds";
+import { useMemo } from "react";
+import useTargetsChest from "hooks/useTargetsChest";
 
 const Exercises = () => {
-  const { data } = useGetExercises();
-  // const { data: count } = useCountTargetMuscles(data);
-  console.log("dattat", data);
+  const user = {
+    id: 1,
+  };
+  const { data: workouts } = useGetUserWorkouts(user, 32);
+  const first = workouts && workouts[0];
 
-  const { data: bla } = useQuery("bru", async () => {
-    exerciseApi.getByIdentifier(2);
-  });
+  const { ids } = useMemo(() => {
+    const ids = workouts?.reduce((id, workout) => [...id, workout.id], []);
+    console.log("ids", ids);
+    return { ids };
+  }, [workouts]);
 
-  console.log("y0?", bla);
+  const { data: sets } = useGetSetsByWorkoutIds(ids);
+
+  // const { data: sets } = useGetSetsByWorkout(first?.id);
+  const count = useCountTargetMuscles(sets);
+  console.log("all workouts", workouts);
+  console.log("sets", sets);
+  console.log("cc", count);
+
+  let date = new Date();
+  date.setDate(new Date().getDate() + 7);
+  console.log(date);
 
   //iz liste vjezbi skuzit koliko ih koji misic trenira
   // return null;
   return (
     <>
-      {data?.map((item) => (
+      {/* {data?.map((item) => (
         <p key={item.id}>{item.label}</p>
-      ))}
+      ))} */}
     </>
   );
 };

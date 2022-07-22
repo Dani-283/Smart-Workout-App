@@ -10,12 +10,20 @@
   },
   "dependencies": {
     "@comunica/query-sparql": "^2.3.0",
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@mui/material": "^5.9.1",
+    "@mui/styles": "^5.9.1",
     "@nestjs/cli": "^8.2.6",
     "axios": "^0.27.2",
+    "babel-plugin-styled-components": "^2.0.7",
+    "babel-preset-next": "^1.4.0",
     "next": "12.1.0",
+    "query-string": "^7.1.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-query": "^3.39.1",
+    "sass": "^1.53.0",
     "sparqljs": "^3.5.2"
   },
   "devDependencies": {

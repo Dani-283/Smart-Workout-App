@@ -5,8 +5,23 @@ import { PrismaService } from '../../common/services/prisma.service';
 @Injectable()
 export class WorkoutService {
   constructor(private prisma: PrismaService) {}
-  public getByUser(userId: number) {
-    return this.prisma.workout.findMany({ where: { userId } });
+  public getById(workoutId: number) {
+    return this.prisma.workout.findUnique({ where: { id: workoutId } });
+  }
+
+  public getManyByUser(userId: number, range: number) {
+    const date = new Date();
+
+    date.setDate(date.getDate() - range);
+    console.log('ayyyyyyo', date);
+    return this.prisma.workout.findMany({
+      where: {
+        userId,
+        createdAt: {
+          gte: date,
+        },
+      },
+    });
   }
 
   public createWorkout(workout: Workout): Promise<Workout> {

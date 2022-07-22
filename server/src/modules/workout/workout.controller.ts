@@ -1,14 +1,22 @@
 /* eslint-disable prettier/prettier */
 import { Workout } from '.prisma/client';
-import { Body, Controller, Get, Param, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Put, Request } from '@nestjs/common';
 import { WorkoutService } from './workout.service';
-@Controller('workout')
+@Controller('workouts')
 export class WorkoutController {
   constructor(private readonly workoutService: WorkoutService) {}
+  // @Get('/workout:workoutId')
+  // getWorkout(@Param() params) {
+  //   console.log('here?');
+  //   const id = Number(params.workoutId);
+  //   return this.workoutService.getById(id);
+  // }
+
   @Get(':userId')
-  getWorkout(@Param() params) {
+  getWorkouts(@Param() params, @Request() req) {
+    console.log('oor here?');
     const id = Number(params.userId);
-    return this.workoutService.getByUser(id);
+    return this.workoutService.getManyByUser(id, req.query.range);
   }
 
   @Put()
