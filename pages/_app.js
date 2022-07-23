@@ -1,10 +1,15 @@
-import "../styles/globals.css";
 import { CssBaseline } from "@mui/material";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { useEffect } from "react";
+import { theme } from "@styles/theme";
+import "../src/styles/base.scss";
 
+import GlobalStyles from "@styles/theme/globalStyles";
+
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 function MyApp({ Component, pageProps }) {
   const queryClient = new QueryClient();
+  console.log("timi", theme);
   useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector("#jss-server-side");
@@ -13,12 +18,17 @@ function MyApp({ Component, pageProps }) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
   }, []);
+  const lightTheme = createTheme(theme);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <CssBaseline />
-      <Component {...pageProps} />
-    </QueryClientProvider>
+    <ThemeProvider theme={lightTheme}>
+      <QueryClientProvider client={queryClient}>
+        <CssBaseline />
+        <GlobalStyles />
+
+        <Component {...pageProps} />
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 }
 

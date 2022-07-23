@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "paths": {
       "@assets/*": ["public/assets/*"],
-      "@shared/*": ["shared/*"],
-      "@styles/*": ["styles/*"],
-      "@features/*": ["features/*"],
+      "@shared/*": ["src/shared/*"],
+      "@styles/*": ["src/styles/*"],
+      "@features/*": ["src/features/*"],
+      "@components/*": ["src/components/*"],
       "@config": ["config/"],
       "@api": ["api/"]
     }
