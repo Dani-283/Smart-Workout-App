@@ -9,23 +9,6 @@ const ExerciseRow = ({ sets, id }) => {
   const classes = useStyles();
 
   return (
-    // <Box display="flex" gap={16.5}>
-    //   <p className={classes.exName}>{label}</p>
-    //   <Box display="flex" className={classes.weights}>
-    //     {sets[id].map((item) => (
-    //       <Box display="flex">
-    //         <p>{`${item.weight}/`}</p>
-    //       </Box>
-    //     ))}
-    //   </Box>
-    //   <Box display="flex">
-    //     {sets[id].map((item) => (
-    //       <Box display="flex">
-    //         <p>{`${item.reps}/`}</p>
-    //       </Box>
-    //     ))}
-    //   </Box>
-    // </Box>
     <TableRow key={label} sx={{ border: 0 }}>
       <TableCell
         className={classes.tableCell}
