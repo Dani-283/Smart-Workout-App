@@ -36,3 +36,12 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
          ?individual rdfs:label ?label.}
         }
 `;
+
+export const GET_EXERCISE_LABEL = (id) => `
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX graph: <http://www.semanticweb.org/đani/ontologies/2021/3/workout#>
+SELECT  * WHERE 
+	{
+                ${id} rdfs:label ?label
+	}
+`;

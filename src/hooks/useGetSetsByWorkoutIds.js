@@ -1,4 +1,4 @@
-import setApi from "api/set";
+import setApi from "@api/set";
 import { useQuery } from "react-query";
 
 const useGetSetsByWorkoutIds = (ids) => {

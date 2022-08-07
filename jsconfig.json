@@ -6,9 +6,11 @@
       "@shared/*": ["src/shared/*"],
       "@styles/*": ["src/styles/*"],
       "@features/*": ["src/features/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@helpers/*": ["src/helpers/*"],
       "@components/*": ["src/components/*"],
-      "@config": ["config/"],
-      "@api": ["api/"]
+      "@config/*": ["src/config/*"],
+      "@api/*": ["src/api/*"]
     }
   }
 }

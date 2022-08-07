@@ -1,20 +1,21 @@
-import config from "@config";
-import useCountTargetMuscles from "hooks/useCountTargetMuscles";
 import { useQuery } from "react-query";
 import exerciseApi from "../api/exercise";
-import useGetSetsByWorkout from "hooks/useGetSetsByWorkout";
-import useGetUserWorkouts from "hooks/useGetUserWorkouts";
-import useGetWorkoutById from "hooks/useGetWorkoutById";
-import useGetSetsByWorkoutIds from "hooks/useGetSetsByWorkoutIds";
+import useGetSetsByWorkout from "@hooks/useGetSetsByWorkout";
+import useGetUserWorkouts from "@hooks/useGetUserWorkouts";
+import useGetWorkoutById from "@hooks/useGetWorkoutById";
+import useGetSetsByWorkoutIds from "@hooks/useGetFormattedSetsByWorkoutIds";
 import { useMemo } from "react";
-import useTargetsChest from "hooks/useTargetsChest";
+import useTargetsChest from "@hooks/useTargetsChest";
+import useCountTargetMuscles from "@hooks/useCountTargetMuscles";
 
 const Exercises = () => {
   const user = {
     id: 1,
   };
-  const { data: workouts } = useGetUserWorkouts(user, 32);
+  const { data: workouts } = useGetUserWorkouts(user, 60);
   const first = workouts && workouts[0];
+
+  console.log("workouts", workouts);
 
   const { ids } = useMemo(() => {
     const ids = workouts?.reduce((id, workout) => [...id, workout.id], []);

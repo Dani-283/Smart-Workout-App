@@ -1,4 +1,4 @@
-import workoutApi from "api/workout";
+import workoutApi from "@api/workout";
 import { useQuery } from "react-query";
 
 const useGetWorkoutById = (id) => {

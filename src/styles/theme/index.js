@@ -1,7 +1,7 @@
 import { colors } from "@mui/material";
 import breakpoints from "./variables/breakpoints";
 import shadows from "./shadows";
-// import createTypograpy from './typography';
+import createTypograpy from "./typography";
 
 const constants = {
   black: "black",
@@ -39,7 +39,7 @@ const theme = {
     constants,
   },
   shadows,
-  // typography: createTypograpy(colors.common.black),
+  typography: createTypograpy(colors.common.black),
 };
 
 export { theme };

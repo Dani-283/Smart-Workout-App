@@ -1,5 +1,5 @@
-import { GET_ALL_EXERCISES } from "helpers/queries";
-import { filterDataObject } from "helpers/utils";
+import { GET_ALL_EXERCISES } from "@helpers/queries";
+import { filterDataObject } from "@helpers/utils";
 import { useQuery } from "react-query";
 
 const useGetExercises = () => {

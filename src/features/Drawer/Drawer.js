@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useTheme } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
@@ -17,16 +17,20 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
 import { Drawer, DrawerHeader, AppBar } from "@components/Drawer/DrawerStyled";
-import { ITEMS } from "./constants";
+import { TABS, TABNAMES } from "./constants";
 
 import { Tab, Tabs } from "@mui/material";
+import useHandleRouting from "@hooks/useHandleRouting";
+import { useRouter } from "next/router";
 
 const DrawerComponent = ({ content }) => {
   const theme = useTheme();
   const classes = useStyles();
+  const router = useRouter();
+  const { upsertQueryParams } = useHandleRouting();
 
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -38,7 +42,12 @@ const DrawerComponent = ({ content }) => {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    upsertQueryParams([{ key: "tab", value: newValue }]);
   };
+
+  useEffect(() => {
+    if (router.isReady) setValue(router.query?.tab || TABNAMES.OVERVIEW);
+  }, [router.query.tab, router.isReady]);
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -50,7 +59,7 @@ const DrawerComponent = ({ content }) => {
             onClick={handleDrawerOpen}
             edge="start"
             sx={{
-              paddingLeft: theme.spacing(3),
+              paddingLeft: theme.spacing(2.5),
               marginRight: 5,
               ...(open && { display: "none" }),
             }}
@@ -86,59 +95,57 @@ const DrawerComponent = ({ content }) => {
             height: 224,
           }}
         >
-          <Tabs
-            orientation="vertical"
-            variant="scrollable"
-            value={value}
-            onChange={handleChange}
-            classes={{ indicator: classes.indicator, root: classes.root }}
-          >
-            {/* <List>
-              <Tab label={<div>baaa</div>} />
-              <Tab label={<div>bubuubub</div>} />
-            </List> */}
-            {/* <List> */}
-            {ITEMS.map((item, index) => (
-              <Tab
-                classes={{ selected: classes.selected }}
-                label={
-                  <ListItem
-                    key={item.title}
-                    disablePadding
-                    sx={{ display: "block" }}
-                  >
-                    <ListItemButton
-                      sx={{
-                        minHeight: 48,
-                        justifyContent: open ? "initial" : "center",
-                        px: 2.5,
-                      }}
+          {value && (
+            <Tabs
+              orientation="vertical"
+              variant="scrollable"
+              value={value}
+              onChange={handleChange}
+              classes={{ indicator: classes.indicator, root: classes.root }}
+            >
+              {TABS.map((item, index) => (
+                <Tab
+                  key={index}
+                  classes={{ selected: classes.selected }}
+                  value={item.id}
+                  label={
+                    <ListItem
+                      key={item.title}
+                      disablePadding
+                      sx={{ display: "block" }}
                     >
-                      <ListItemIcon
+                      <ListItemButton
                         sx={{
-                          minWidth: 0,
-                          mr: open ? 3 : "auto",
-                          justifyContent: "center",
+                          minHeight: 48,
+                          justifyContent: open ? "initial" : "center",
+                          px: 2.5,
                         }}
                       >
-                        {item.icon}
-                      </ListItemIcon>
-                      <ListItemText
-                        primary={item.title}
-                        sx={{ opacity: open ? 1 : 0 }}
-                      />
-                    </ListItemButton>
-                  </ListItem>
-                }
-              />
-            ))}
-            {/* </List> */}
-          </Tabs>
+                        <ListItemIcon
+                          sx={{
+                            minWidth: 0,
+                            mr: open ? 3 : "auto",
+                            justifyContent: "center",
+                          }}
+                        >
+                          {item.icon}
+                        </ListItemIcon>
+                        <ListItemText
+                          primary={item.title}
+                          sx={{ opacity: open ? 1 : 0 }}
+                        />
+                      </ListItemButton>
+                    </ListItem>
+                  }
+                />
+              ))}
+            </Tabs>
+          )}
         </Box>
       </Drawer>
       <main style={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        {ITEMS.map((current) => current.id === value && current.component)}
+        {TABS.map((current) => current.id === value && current.component)}
       </main>
     </Box>
   );

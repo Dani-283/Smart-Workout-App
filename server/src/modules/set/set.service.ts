@@ -4,25 +4,22 @@ import { PrismaService } from '../../common/services/prisma.service';
 
 @Injectable()
 export class SetService {
-  createWorkout(arg0: {
-    id: number;
-    title: any;
-    description: any;
-    createdAt: Date;
-    userId: any;
-  }):
-    | import('.prisma/client').Workout
-    | PromiseLike<import('.prisma/client').Workout> {
-    throw new Error('Method not implemented.');
-  }
   constructor(private prisma: PrismaService) {}
   public getByWorkout(workoutId: number) {
     console.log('why are you ahere');
     return this.prisma.set.findMany({ where: { workoutId } });
   }
 
-  public async getAllByWorkoutIds(ids: number[]): Promise<Set[]> {
-    return this.prisma.set.findMany({
+  public async getAllByWorkoutIds(ids: number[]) {
+    // return this.prisma.set.findMany({
+    //   where: {
+    //     workoutId: {
+    //       in: ids,
+    //     },
+    //   },
+    // });
+    return this.prisma.set.groupBy({
+      by: ['exerciseId'],
       where: {
         workoutId: {
           in: ids,
@@ -30,6 +27,15 @@ export class SetService {
       },
     });
   }
+
+  // public async group(workoutId) {
+  //   const groupUsers = await this.prisma.set.groupBy({
+  //     by: ['exerciseId'],
+  //     where: {
+  //       workoutId,
+  //     },
+  //   });
+  // }
 
   public createSet(set: Set): Promise<Set> {
     return this.prisma.set.create({

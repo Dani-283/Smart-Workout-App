@@ -2,7 +2,7 @@ import { styled } from "@mui/material/styles";
 import { Drawer as MuiDrawer, AppBar as MuiAppBar } from "@mui/material";
 
 const openedMixin = (theme) => ({
-  width: 240,
+  width: 207,
   borderRight: 0,
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
@@ -49,8 +49,8 @@ export const AppBar = styled(MuiAppBar, {
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
-    marginLeft: 240,
-    width: `calc(100% - ${240}px)`,
+    marginLeft: 207,
+    width: `calc(100% - ${207}px)`,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -61,7 +61,7 @@ export const AppBar = styled(MuiAppBar, {
 export const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
-  width: 240,
+  width: 207,
   flexShrink: 0,
   whiteSpace: "nowrap",
   boxSizing: "border-box",

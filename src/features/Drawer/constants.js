@@ -7,29 +7,36 @@ import History from "@features/History";
 import Charts from "@features/Charts";
 import Settings from "@features/Settings";
 
-export const ITEMS = [
+export const TABNAMES = {
+  OVERVIEW: "overview",
+  HISTORY: "history",
+  CHARTS: "charts",
+  SETTINGS: "settings",
+};
+
+export const TABS = [
   {
     icon: <FitnessCenterIcon />,
     title: "Overview",
-    id: 0,
-    component: <Overview />,
+    id: TABNAMES.OVERVIEW,
+    component: <Overview key={TABNAMES.OVERVIEW} />,
   },
   {
     icon: <AccessTimeFilledIcon />,
     title: "History",
-    id: 1,
-    component: <History />,
+    id: TABNAMES.HISTORY,
+    component: <History key={TABNAMES.HISTORY} />,
   },
   {
     icon: <TimelineIcon />,
     title: "Charts",
-    id: 2,
-    component: <Charts />,
+    id: TABNAMES.CHARTS,
+    component: <Charts key={TABNAMES.CHARTS} />,
   },
   {
     icon: <SettingsIcon />,
     title: "Settings",
-    id: 3,
-    component: <Settings />,
+    id: TABNAMES.SETTINGS,
+    component: <Settings key={TABNAMES.SETTINGS} />,
   },
 ];

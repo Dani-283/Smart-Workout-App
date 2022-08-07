@@ -1,4 +1,4 @@
-import exercise from "api/exercise";
+import exercise from "@api/exercise";
 import { useQuery } from "react-query";
 
 const useGetBulkExercises = (ids) => {

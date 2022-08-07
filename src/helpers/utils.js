@@ -1,3 +1,5 @@
+import config from "src/config";
+
 export const filterDataObject = (arr, key, val) => [
   ...arr
     ?.reduce((acc, { [key]: keyProp, [val]: valProp }) => {
@@ -10,3 +12,10 @@ export const filterDataObject = (arr, key, val) => [
     }, new Map())
     .values(),
 ];
+
+export const getExerciseNameFromId = (id) => {
+  const filteredName = id.split(config.rdf);
+  const re = new RegExp("_", "g");
+
+  return filteredName[1].replace(re, " ");
+};
