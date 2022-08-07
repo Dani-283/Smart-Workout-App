@@ -4,7 +4,6 @@ import { NextSeo } from "next-seo";
 import Layout from "@components/Layout";
 import Exercises from "@features/Exercises";
 import DrawerComponent from "@features/Drawer/Drawer";
-
 export default function Home() {
   return (
     <Layout>
