@@ -7,9 +7,9 @@ import "../src/styles/base.scss";
 import GlobalStyles from "@styles/theme/globalStyles";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { queryClient } from "@api/base";
 function MyApp({ Component, pageProps }) {
-  const queryClient = new QueryClient();
-  console.log("timi", theme);
+  // const queryClient = new QueryClient();
   useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector("#jss-server-side");

@@ -13,7 +13,6 @@ export class WorkoutService {
     const date = new Date();
 
     date.setDate(date.getDate() - range);
-    console.log('ayyyyyyo', date);
     return this.prisma.workout.findMany({
       where: {
         userId,
@@ -21,6 +20,7 @@ export class WorkoutService {
           gte: date,
         },
       },
+      orderBy: { createdAt: 'desc' },
     });
   }
 
@@ -32,6 +32,12 @@ export class WorkoutService {
         createdAt: workout.createdAt,
         userId: workout.userId,
       },
+    });
+  }
+
+  public deleteWorkout(workoutId: number) {
+    return this.prisma.workout.delete({
+      where: { id: workoutId },
     });
   }
 }

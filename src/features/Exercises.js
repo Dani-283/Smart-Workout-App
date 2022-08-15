@@ -15,25 +15,18 @@ const Exercises = () => {
   const { data: workouts } = useGetUserWorkouts(user, 60);
   const first = workouts && workouts[0];
 
-  console.log("workouts", workouts);
-
   const { ids } = useMemo(() => {
     const ids = workouts?.reduce((id, workout) => [...id, workout.id], []);
-    console.log("ids", ids);
     return { ids };
   }, [workouts]);
 
-  const { data: sets } = useGetSetsByWorkoutIds(ids);
+  // const { data: sets } = useGetSetsByWorkoutIds(ids);
 
   // const { data: sets } = useGetSetsByWorkout(first?.id);
-  const count = useCountTargetMuscles(sets);
-  console.log("all workouts", workouts);
-  console.log("sets", sets);
-  console.log("cc", count);
+  // const count = useCountTargetMuscles(sets);
 
   let date = new Date();
   date.setDate(new Date().getDate() + 7);
-  console.log(date);
 
   //iz liste vjezbi skuzit koliko ih koji misic trenira
   // return null;

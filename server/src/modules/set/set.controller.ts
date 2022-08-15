@@ -3,6 +3,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Put,
@@ -49,6 +50,13 @@ export class SetController {
       rir: body.rir,
       weight: body.weight,
       reps: body.reps,
+      order: 0,
     });
+  }
+
+  @Delete('delete')
+  deleteByWorkoutId(@Body() body) {
+    const id = Number(body.workoutId);
+    return this.setService.deleteByWorkoutId(id);
   }
 }

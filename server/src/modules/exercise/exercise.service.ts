@@ -8,7 +8,6 @@ export class ExerciseService {
 
   public async getExercises(): Promise<Exercise[]> {
     const data = await this.prisma.exercise.findMany();
-    console.log(data);
     return data;
   }
 
@@ -22,7 +21,6 @@ export class ExerciseService {
   }
 
   public async getAllFromIds(ids): Promise<Exercise[]> {
-    console.log('yo', ids);
     const b = await this.prisma.exercise.findMany({
       where: {
         id: {
@@ -30,12 +28,10 @@ export class ExerciseService {
         },
       },
     });
-    console.log(b);
     return b;
   }
 
   public createExercise(exercise: Exercise): Promise<Exercise> {
-    console.log(exercise);
     return this.prisma.exercise.create({
       data: {
         id: exercise.id,

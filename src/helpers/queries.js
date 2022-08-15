@@ -26,15 +26,16 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
         { ?individual rdf:type/rdfs:subClassOf* graph:Exercise.
           ?individual graph:primaryMuscle ?primary.
           ?individual graph:secondaryMuscle ?secondary.
-        
-         ?individual rdfs:label ?label. }
+          ?individual graph:usesEquipment ?equipment.	
+          ?individual rdfs:label ?label. 	
+        }
         UNION
         {  ?individual rdf:type/rdfs:subClassOf* graph:Exercise.
            ?individual graph:primaryMuscle ?primary.
-        
-        
-         ?individual rdfs:label ?label.}
+           ?individual graph:usesEquipment ?equipment.	
+           ?individual rdfs:label ?label.
         }
+        }order by ?primary
 `;
 
 export const GET_EXERCISE_LABEL = (id) => `

@@ -4,21 +4,20 @@ import { useEffect, useState } from "react";
 
 const useGetFormattedSetsByWorkoutIds = (ids) => {
   const [sets, setSets] = useState({});
-  console.log(
-    "ids",
-    ids?.filter((id) => id === 1)
-  );
-  console.log(sets);
+  console.log("uu hoku", ids);
   useEffect(() => {
     (async () => {
+      console.log("sets?", sets);
       const notFetchedIds = ids?.filter((a) => !!a && !sets[a]);
       if (notFetchedIds?.length > 0) {
+        console.log("tu");
+        console.log(notFetchedIds, "not fetched");
         const newSets = await setApi.getSetsByWorkoutIds(notFetchedIds);
-        console.log(newSets);
+        console.log("yo", newSets);
         const newSetsMap = notFetchedIds?.reduce((res, u) => {
-          console.log("res", res);
-          const fetchedSets = newSets.filter((set) => set.workoutId === u);
-          console.log("fetch", fetchedSets);
+          const fetchedSets = newSets.filter(
+            (set) => set.workoutId === Number(u)
+          );
 
           const a = fetchedSets.reduce((r, a) => {
             r[a.exerciseId] = r[a.exerciseId] || [];
@@ -34,9 +33,8 @@ const useGetFormattedSetsByWorkoutIds = (ids) => {
         setSets((state) => ({ ...state, ...newSetsMap }));
       }
     })();
-  }, [ids, sets]);
+  }, [ids]);
 
-  console.log(sets);
   return { sets };
 };
 

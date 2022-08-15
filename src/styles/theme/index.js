@@ -29,6 +29,7 @@ const theme = {
       secondary: "#8D8D8D",
       secondaryLight: "#dedede",
       contrast: "#ffffff",
+      error: "#ff3f3f",
     },
 
     common: {

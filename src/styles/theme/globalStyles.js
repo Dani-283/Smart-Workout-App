@@ -1,67 +1,66 @@
-import { makeStyles, createStyles } from '@mui/styles';
+import { makeStyles, createStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
-    '@global': {
-      '*, *::after, *::before': {
-        boxSizing: 'border-box',
+    "@global": {
+      "*, *::after, *::before": {
+        boxSizing: "border-box",
         margin: 0,
         padding: 0,
       },
       html: {
-        '-webkit-font-smoothing': 'antialiased',
-        '-moz-osx-font-smoothing': 'grayscale',
-        height: '100%',
-        width: '100%',
+        "-webkit-font-smoothing": "antialiased",
+        "-moz-osx-font-smoothing": "grayscale",
+        height: "100%",
+        width: "100%",
       },
       body: {
         backgroundColor: theme.palette.background.primary,
-        height: '100%',
-        width: 'auto',
+        height: "100%",
+        width: "auto",
       },
-      'svg[data-type=filled-icon] *': {
+      "svg[data-type=filled-icon] *": {
         fill: theme.palette.primary.main,
       },
-      'svg[data-type=icon] *': {
+      "svg[data-type=icon] *": {
         stroke: theme.palette.primary.main,
       },
-      'svg[data-type=reverse-icon] *': {
+      "svg[data-type=reverse-icon] *": {
         stroke: theme.palette.common.white,
       },
 
-      main: {
-        paddingBottom: 1047,
-        position: 'relative',
-        [theme.breakpoints.up('sm')]: {
-          paddingBottom: 430,
-        },
-      },
       a: {
-        textDecoration: 'none',
-        color: 'inherit',
+        textDecoration: "none",
+        color: "inherit",
       },
-      '#root': {
-        height: '100%',
-        width: '100%',
+      "#root": {
+        height: "100%",
+        width: "100%",
       },
-      '#__next': {
-        minHeight: '100vh',
-        position: 'relative',
+      "#__next": {
+        minHeight: "100vh",
+        position: "relative",
+      },
+
+      ".noHoverButton": {
+        "&:hover": {
+          background: "none",
+        },
       },
 
       desktopHidden: {
         [theme.breakpoints.up(theme.breakpoints.values.sm)]: {
-          display: 'none',
+          display: "none",
         },
       },
 
       mobileHidden: {
         [theme.breakpoints.down(theme.breakpoints.values.sm)]: {
-          display: 'none',
+          display: "none",
         },
       },
     },
-  }),
+  })
 );
 
 const GlobalStyles = () => {

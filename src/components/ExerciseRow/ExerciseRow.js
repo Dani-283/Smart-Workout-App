@@ -9,7 +9,7 @@ const ExerciseRow = ({ sets, id }) => {
   const classes = useStyles();
 
   return (
-    <TableRow key={label} sx={{ border: 0 }}>
+    <TableRow key={id} sx={{ border: 0 }}>
       <TableCell
         className={classes.tableCell}
         sx={{ border: 0 }}
@@ -25,11 +25,15 @@ const ExerciseRow = ({ sets, id }) => {
         width="40%"
       >
         <Box display="flex">
-          {sets[id].map((item, i) => (
-            <Box display="flex">
-              <p>{`${item.weight}${sets[id].length > i + 1 ? "/" : ""}`}</p>
-            </Box>
-          ))}
+          {sets[id][0].weight !== null ? (
+            sets[id].map((item, i) => (
+              <Box display="flex" key={i}>
+                <p>{`${item.weight}${sets[id].length > i + 1 ? "/" : ""}`}</p>
+              </Box>
+            ))
+          ) : (
+            <p>-</p>
+          )}
         </Box>
       </TableCell>
       <TableCell
@@ -40,7 +44,7 @@ const ExerciseRow = ({ sets, id }) => {
       >
         <Box display="flex">
           {sets[id].map((item, i) => (
-            <Box display="flex">
+            <Box display="flex" key={i}>
               <p>{`${item.reps}${sets[id].length > i + 1 ? "/" : ""}`}</p>
             </Box>
           ))}

@@ -18,6 +18,7 @@ const useGetExercises = () => {
         id: ex.get("individual").value,
         label: ex.get("label").value,
         primary: ex.get("primary").value,
+        equipment: ex.get("equipment").value,
         ...(hasSecondary && { secondary: ex.get("secondary").value }),
       };
     });

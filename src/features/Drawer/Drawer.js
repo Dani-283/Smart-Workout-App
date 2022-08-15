@@ -14,16 +14,19 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
+import BackIcon from "@mui/icons-material/KeyboardReturn";
 import ListItemText from "@mui/material/ListItemText";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 
 import { Drawer, DrawerHeader, AppBar } from "@components/Drawer/DrawerStyled";
 import { TABS, TABNAMES } from "./constants";
 
-import { Tab, Tabs } from "@mui/material";
+import { Button, Tab, Tabs } from "@mui/material";
 import useHandleRouting from "@hooks/useHandleRouting";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
-const DrawerComponent = ({ content }) => {
+const DrawerComponent = ({ content, workout }) => {
   const theme = useTheme();
   const classes = useStyles();
   const router = useRouter();
@@ -41,8 +44,10 @@ const DrawerComponent = ({ content }) => {
   };
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-    upsertQueryParams([{ key: "tab", value: newValue }]);
+    if (!workout) {
+      setValue(newValue);
+      upsertQueryParams([{ key: "tab", value: newValue }]);
+    }
   };
 
   useEffect(() => {
@@ -66,9 +71,17 @@ const DrawerComponent = ({ content }) => {
           >
             <MenuIcon fontSize="large" />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            STRONG APP
-          </Typography>
+
+          <Button
+            onClick={() => router.push("/new-workout")}
+            className={classes.workout}
+            variant="contained"
+          >
+            + NEW WORKOUT
+          </Button>
+          <Button variant="outlined" className={classes.profileButton}>
+            <PersonOutlineIcon sx={{ fill: "#0288d1" }} />
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -95,7 +108,7 @@ const DrawerComponent = ({ content }) => {
             height: 224,
           }}
         >
-          {value && (
+          {value && !workout ? (
             <Tabs
               orientation="vertical"
               variant="scrollable"
@@ -140,12 +153,40 @@ const DrawerComponent = ({ content }) => {
                 />
               ))}
             </Tabs>
+          ) : (
+            <ListItem
+              className={classes.root}
+              onClick={() => router.back()}
+              key={"back"}
+              disablePadding
+              sx={{ display: "block" }}
+            >
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 5,
+                  py: 2.5,
+                }}
+              >
+                <BackIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                />
+                <ListItemText primary="BACK" sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
           )}
         </Box>
       </Drawer>
       <main style={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        {TABS.map((current) => current.id === value && current.component)}
+        {workout
+          ? content
+          : TABS.map((current) => current.id === value && current.component)}
       </main>
     </Box>
   );
@@ -177,6 +218,35 @@ const useStyles = makeStyles((theme) => ({
       "& svg": {
         fill: theme.palette.primary.blue,
       },
+    },
+  },
+
+  workout: {
+    marginLeft: "auto",
+    color: "white",
+    fontWeight: 700,
+    background: theme.palette.primary.blue,
+    borderRadius: 20,
+
+    "&:hover": {
+      background: theme.palette.primary.blue,
+      opacity: 0.95,
+    },
+  },
+
+  profileButton: {
+    borderRadius: "50%",
+    borderColor: theme.palette.primary.blue,
+    borderWidth: "2px",
+    padding: 5,
+    width: "fit-content",
+    minWidth: "unset",
+    marginInline: theme.spacing(3),
+
+    "&:hover": {
+      borderColor: theme.palette.primary.blue,
+      borderWidth: "2px",
+      background: `${theme.palette.primary.blue}33`,
     },
   },
 }));

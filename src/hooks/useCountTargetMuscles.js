@@ -7,12 +7,10 @@ const useCountTargetMuscles = (sets) => {
   const { data } = useGetExercises();
   const { ids } = useMemo(() => {
     const ids = sets?.reduce((id, set) => [...id, set.exerciseId], []);
-    console.log("ids", ids);
     return { ids };
   }, [sets]);
 
   const { data: chest } = useTargetsChest();
-  console.log("chesto", chest);
 
   // const { data: ex } = useGetBulkExercises(ids);
   // console.log("plzzzzzz", ex);
@@ -64,8 +62,6 @@ const useCountTargetMuscles = (sets) => {
   //   },
   // ];
 
-  console.log("data", data);
-
   // const a = exercises?.forEach((ex) => {
   //   console.log(data?.find((d) => d.id === ex.exerciseId));
   // });
@@ -79,7 +75,6 @@ const useCountTargetMuscles = (sets) => {
   const count = exercises?.reduce((obj, b) => {
     obj[b?.primary] = ++obj[b?.primary] || 1;
     b?.secondary.forEach((e) => {
-      console.log("eeeee", e);
       obj[e] = obj[e] + 0.5 || 0.5;
     });
     return obj;
