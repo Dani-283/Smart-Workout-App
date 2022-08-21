@@ -42,7 +42,7 @@ export class SetController {
   @Put()
   async createSet(@Body() body): Promise<Set> {
     return this.setService.createSet({
-      id: 0,
+      id: body.dbId || 0,
       createdAt: new Date(),
       description: body.description,
       exerciseId: body.exerciseId,

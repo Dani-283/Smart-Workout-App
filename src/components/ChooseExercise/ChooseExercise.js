@@ -23,8 +23,6 @@ const ChooseExercise = ({ setOpen, setExercises }) => {
 
   const { data, isLoading } = useGetExercises();
 
-  console.log("dddddd", data);
-
   const handleClick = (exercise) => {
     setExercises((prev) => [
       ...prev,
@@ -43,7 +41,6 @@ const ChooseExercise = ({ setOpen, setExercises }) => {
     ]);
     setOpen(false);
   };
-  console.log("values", values);
 
   return (
     <Dialog open classes={{ paper: classes.dialog }}>

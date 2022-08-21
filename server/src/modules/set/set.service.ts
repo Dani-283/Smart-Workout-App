@@ -9,9 +9,13 @@ export class SetService {
     return this.prisma.set.findMany({ where: { workoutId } });
   }
 
+  public getById(setId: number) {
+    return this.prisma.set.findUnique({ where: { id: setId } });
+  }
+
   public async getAllByWorkoutIds(ids: number[]) {
     return this.prisma.set.findMany({
-      orderBy: { order: 'asc' },
+      orderBy: [{ createdAt: 'asc' }, { order: 'asc' }],
       where: {
         workoutId: {
           in: ids,
@@ -38,8 +42,20 @@ export class SetService {
   // }
 
   public createSet(set: Set): Promise<Set> {
-    return this.prisma.set.create({
-      data: {
+    // return this.prisma.set.create({
+    //   data: {
+    //     createdAt: set.createdAt,
+    //     description: set.description,
+    //     exerciseId: set.exerciseId,
+    //     workoutId: set.workoutId,
+    //     rir: set.rir,
+    //     weight: set.weight,
+    //     reps: set.reps,
+    //     order: set.order,
+    //   },
+    // });
+    return this.prisma.set.upsert({
+      create: {
         createdAt: set.createdAt,
         description: set.description,
         exerciseId: set.exerciseId,
@@ -49,12 +65,26 @@ export class SetService {
         reps: set.reps,
         order: set.order,
       },
+      update: {
+        description: set.description,
+        rir: set.rir,
+        weight: set.weight,
+        reps: set.reps,
+        order: set.order,
+      },
+      where: { id: set.id },
     });
   }
 
   public deleteByWorkoutId(workoutId: number) {
     return this.prisma.set.deleteMany({
       where: { workoutId: workoutId },
+    });
+  }
+
+  public deleteById(setId: number) {
+    return this.prisma.set.delete({
+      where: { id: setId },
     });
   }
 }

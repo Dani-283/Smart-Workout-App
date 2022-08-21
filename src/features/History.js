@@ -2,12 +2,10 @@ import WorkoutCard from "@components/WorkoutCard.js";
 import React, { useMemo, useRef } from "react";
 import useGetFormattedSetsByWorkoutIds from "@hooks/useGetFormattedSetsByWorkoutIds";
 import useGetUserWorkouts from "src/hooks/useGetUserWorkouts";
-import useGetExercises from "@hooks/useGetExercises";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import PageContainer from "@components/PageContainer";
 import { getMonth } from "date-fns";
 
@@ -17,10 +15,8 @@ const History = () => {
   };
 
   const classes = useStyles();
-  const router = useRouter();
   const prevMonth = useRef();
   const { data: workouts } = useGetUserWorkouts(user, 90);
-  console.log("win", workouts);
   const { ids } = useMemo(() => {
     const ids = workouts?.reduce((id, workout) => [...id, workout.id], []);
     return { ids };

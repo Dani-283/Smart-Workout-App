@@ -25,13 +25,27 @@ export class WorkoutService {
   }
 
   public createWorkout(workout: Workout): Promise<Workout> {
-    return this.prisma.workout.create({
-      data: {
+    // return this.prisma.workout.create({
+    //   data: {
+    //     title: workout.title,
+    //     description: workout.description,
+    //     createdAt: workout.createdAt,
+    //     userId: workout.userId,
+    //   },
+    // });
+    return this.prisma.workout.upsert({
+      create: {
         title: workout.title,
         description: workout.description,
         createdAt: workout.createdAt,
         userId: workout.userId,
       },
+      update: {
+        title: workout.title,
+        description: workout.description,
+      },
+
+      where: { id: workout.id },
     });
   }
 

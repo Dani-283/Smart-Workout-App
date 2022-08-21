@@ -1,18 +1,34 @@
 import Layout from "@components/Layout";
 import NewWorkoutFormo from "@features/NewWorkoutFormo";
+import { getExerciseNameFromId, removeRdfPrefix } from "@helpers/utils";
 import useGetFormattedSetsByWorkoutIds from "@hooks/useGetFormattedSetsByWorkoutIds";
 import useGetSetsByWorkout from "@hooks/useGetSetsByWorkout";
-import React from "react";
+import useGetWorkoutById from "@hooks/useGetWorkoutById";
 
 const WorkoutDetails = ({ id }) => {
-  const { data } = useGetFormattedSetsByWorkoutIds([id]);
-  const { data: one } = useGetSetsByWorkout(id);
-  console.log(data);
-  console.log("one", one);
+  const { sets } = useGetFormattedSetsByWorkoutIds([id]);
+  const { data: workout } = useGetWorkoutById(Number(id));
+
+  console.log("w2", workout);
+  console.log("setjovi", sets);
+
+  const exercises =
+    Object.keys(sets).length &&
+    Object.entries(sets[id]).map((item) => ({
+      id: item[0],
+      label: getExerciseNameFromId(item[0]),
+      sets: item[1].map((set, i) => ({
+        ...set,
+        id: `${removeRdfPrefix(item[0])}-set_${i + 1}`,
+        dbId: set.id,
+      })),
+    }));
+
   return (
     <Layout workout>
-      <div>deets{id}</div>
-      <NewWorkoutFormo data={data} />
+      {exercises && workout && (
+        <NewWorkoutFormo data={exercises} workout={workout} />
+      )}
     </Layout>
   );
 };

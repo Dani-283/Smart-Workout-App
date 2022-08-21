@@ -116,6 +116,7 @@ const NewWorkoutForm = () => {
                     key={i}
                     addSet={addSet}
                     removeSet={removeSet}
+                    editable
                   />
                 ))}
                 <Button

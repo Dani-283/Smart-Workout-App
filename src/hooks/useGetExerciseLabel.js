@@ -7,7 +7,7 @@ const useGetExerciseLabel = (id) => {
 
   const graphEndpoint = `<${id}>`;
 
-  return useQuery(id, async () => {
+  return useQuery(["label", id], async () => {
     const bindingsStream = await myEngine.queryBindings(
       GET_EXERCISE_LABEL(graphEndpoint),
       {

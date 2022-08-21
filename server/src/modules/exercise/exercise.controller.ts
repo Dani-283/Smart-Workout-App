@@ -44,7 +44,6 @@ export class ExerciseController {
 
   @Put()
   async createExercise(@Body() body): Promise<Exercise> {
-    console.log(body);
     return this.exerciseService.createExercise({
       id: body.id,
       name: body.name,

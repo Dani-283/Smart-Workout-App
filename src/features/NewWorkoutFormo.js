@@ -2,23 +2,55 @@ import { Formik, Form } from "formik";
 import { makeStyles } from "@mui/styles";
 import { Box, Button, Typography, Card } from "@mui/material";
 import TextField from "@components/TextField";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ChooseExercise from "@components/ChooseExercise";
 import { removeRdfPrefix } from "@helpers/utils";
-import clsx from "clsx";
 import workoutApi from "@api/workout";
 import { useRouter } from "next/router";
 import { queryClient } from "@api/base";
+import NewWorkoutFormExercise from "@components/NewWorkoutFormExercise";
+import Edit from "@mui/icons-material/Edit";
+import { format } from "date-fns";
 
-const NewWorkoutFormo = ({ data }) => {
+const NewWorkoutFormo = ({ data, workout }) => {
   const classes = useStyles();
   const router = useRouter();
   const [showExerciseModal, setShowExerciseModal] = useState(false);
-  const [exercises, setExercises] = useState([]);
+  const [exercises, setExercises] = useState(data);
+  const [initial, setInitial] = useState([]);
+  const [editable, setEditable] = useState(false);
+
+  console.log("yl", data);
+  const { setIds } = useMemo(() => {
+    const setIds = data?.reduce((ids, set) => [...ids, set.id], []);
+
+    return { setIds };
+  }, [data]);
+
+  useEffect(() => {
+    const ex = {
+      ...exercises.reduce((res, u) => {
+        const sets = u.sets.map((set, i) => ({
+          [`${set.id}-weight`]: set.weight,
+          [`${set.id}-reps`]: set.reps,
+          [`${set.id}-rir`]: set.rir,
+        }));
+
+        const fields = sets.reduce((res, u) => {
+          return { ...res, ...u };
+        }, {});
+
+        return { ...res, ...fields };
+      }, {}),
+    };
+    setInitial({ ...ex, workoutTitle: workout.title });
+  }, []);
 
   const addSet = (exerciseId) => {
     const exercise = exercises.find((ex) => ex.id === exerciseId);
     const setNum = exercise.sets.length;
+    const first = exercise.sets[0].order;
+    const dif = setNum + first;
 
     setExercises((prev) =>
       prev.map((ex) => {
@@ -28,10 +60,11 @@ const NewWorkoutFormo = ({ data }) => {
             sets: [
               ...ex.sets,
               {
-                id: `${removeRdfPrefix(exercise.id)}-set_${setNum + 1}`,
+                id: `${removeRdfPrefix(exercise.id)}-set_${dif}`,
                 weight: "",
                 reps: "",
                 rir: "",
+                order: dif,
               },
             ],
           };
@@ -41,12 +74,22 @@ const NewWorkoutFormo = ({ data }) => {
     );
   };
 
-  console.log("ex", exercises);
-
-  const body = {
-    title: `Today's workout`,
-    userId: 1,
-    exercises: exercises,
+  const removeSet = (exerciseId, setOrder) => {
+    const exercise = exercises.find((ex) => ex.id === exerciseId);
+    const setNum = exercise.sets.length;
+    const deleteEx = setNum - 1 === 0;
+    setExercises((prev) => {
+      if (deleteEx) return prev.filter((ex) => ex.id !== exerciseId);
+      return prev.map((ex) => {
+        if (ex.id === exerciseId) {
+          return {
+            ...ex,
+            sets: ex.sets.filter((set, i) => i !== setOrder),
+          };
+        }
+        return ex;
+      });
+    });
   };
 
   const create = async (values) => {
@@ -75,160 +118,96 @@ const NewWorkoutFormo = ({ data }) => {
       exercises: [...exercises],
       title: values.workoutTitle,
       userId: 1,
+      id: workout.id,
     });
+    queryClient.invalidateQueries(["workout", workout.id]);
     queryClient.invalidateQueries(["workouts", 1]);
 
     router.push("/?tab=history");
   };
 
   return (
-    <Box p={3}>
-      <Formik
-        // validationSchema={validationSchema}
-        // validateOnBlur
-        // validateOnChange={false}
-        // enableReinitialize
-        initialValues={{ workoutTitle: `Today's workout` }}
-        onSubmit={async (values) => create(values)}
-      >
-        {({ dirty, resetForm, setFieldValue, values }) => (
-          <Form className={classes.form}>
-            <Card sx={{ padding: 3 }}>
-              <Box display="flex" flexDirection="column">
-                <TextField
-                  className={classes.label}
-                  name={"workoutTitle"}
-                  containerClassName={classes.labelContainer}
-                />
-
-                {exercises.map((ex, i) => (
-                  <Box key={i} mt={3} display="flex" flexDirection="column">
-                    <Typography className={classes.name}>{ex.label}</Typography>
-                    <Box display="flex" flexDirection="column" gap={1}>
-                      {ex.sets.map((set, i) => (
-                        <Box
-                          key={i}
-                          display="flex"
-                          justifyContent="space-between"
-                        >
-                          <Box>
-                            <Typography
-                              align="center"
-                              className={clsx(
-                                classes.columnName,
-                                i > 0 && "hidden"
-                              )}
-                            >
-                              SET
-                            </Typography>
-                            <Typography align="center">{i + 1}</Typography>
-                          </Box>
-                          <Box>
-                            <Typography
-                              align="center"
-                              className={clsx(
-                                classes.columnName,
-                                i > 0 && "hidden"
-                              )}
-                            >
-                              PREVIOUS
-                            </Typography>
-                            <Typography align="center">-</Typography>
-                          </Box>
-                          {ex.equipment !== "Bodyweight" && (
-                            <Box>
-                              <Typography
-                                align="center"
-                                className={clsx(
-                                  classes.columnName,
-                                  i > 0 && "hidden"
-                                )}
-                              >
-                                WEIGHTS
-                              </Typography>
-                              <TextField
-                                type="number"
-                                name={`${removeRdfPrefix(ex.id)}-set_${
-                                  i + 1
-                                }-weight`}
-                              />
-                            </Box>
-                          )}
-                          <Box>
-                            <Typography
-                              align="center"
-                              className={clsx(
-                                classes.columnName,
-                                i > 0 && "hidden"
-                              )}
-                            >
-                              REPS
-                            </Typography>
-                            <TextField
-                              type="number"
-                              name={`${removeRdfPrefix(ex.id)}-set_${
-                                i + 1
-                              }-reps`}
-                            />
-                          </Box>
-                          <Box>
-                            <Typography
-                              align="center"
-                              className={clsx(
-                                classes.columnName,
-                                i > 0 && "hidden"
-                              )}
-                            >
-                              RIR
-                              <div className={classes.info}>?</div>
-                            </Typography>
-                            <TextField
-                              type="number"
-                              name={`${removeRdfPrefix(ex.id)}-set_${
-                                i + 1
-                              }-rir`}
-                            />
-                          </Box>
-                        </Box>
-                      ))}
-                    </Box>
-                    <Button
-                      className={clsx(classes.addButton, classes.addSet)}
-                      onClick={() => addSet(ex.id)}
-                    >
-                      + Add Set
-                    </Button>
+    Object.keys(initial).length && (
+      <Box p={3}>
+        <Formik
+          initialValues={{ ...initial }}
+          onSubmit={async (values) => create(values)}
+        >
+          {({ dirty }) => (
+            <Form className={classes.form}>
+              <Card sx={{ padding: 3 }}>
+                <Box display="flex" flexDirection="column">
+                  <Box
+                    display="flex"
+                    justifyContent="space-between"
+                    alignItems="center"
+                  >
+                    <TextField
+                      className={classes.label}
+                      disabled={!editable}
+                      name="workoutTitle"
+                      containerClassName={classes.labelContainer}
+                    />
+                    {!editable && (
+                      <Button
+                        className={classes.edit}
+                        onClick={() => setEditable(true)}
+                      >
+                        <Typography>Edit workout</Typography>
+                        <Edit />
+                      </Button>
+                    )}
                   </Box>
-                ))}
-                <Button
-                  disableRipple
-                  className={classes.addButton}
-                  onClick={() => setShowExerciseModal(true)}
-                >
-                  + Add Exercise
-                </Button>
+                  <p className={classes.month}>
+                    {format(
+                      new Date(workout.createdAt),
+                      "EEEE, MMMM dd, yyyy, k:mm"
+                    )}
+                  </p>
 
-                {showExerciseModal && (
-                  <ChooseExercise
-                    setOpen={setShowExerciseModal}
-                    setExercises={setExercises}
-                  />
-                )}
-              </Box>
-            </Card>
-            <Button
-              disabled={!dirty}
-              type="submit"
-              variant="outlined"
-              className={classes.finish}
-            >
-              FINISH
-            </Button>
-            {/* <Button onClick={() => create(body, values)}>FINISH</Button> */}
-          </Form>
-        )}
-      </Formik>
-    </Box>
+                  {exercises.map((ex, i) => (
+                    <NewWorkoutFormExercise
+                      exercise={ex}
+                      key={i}
+                      addSet={addSet}
+                      removeSet={removeSet}
+                      editable={editable}
+                      details
+                    />
+                  ))}
+                  {editable && (
+                    <Button
+                      disableRipple
+                      className={classes.addButton}
+                      onClick={() => setShowExerciseModal(true)}
+                    >
+                      + Add Exercise
+                    </Button>
+                  )}
+
+                  {showExerciseModal && (
+                    <ChooseExercise
+                      setOpen={setShowExerciseModal}
+                      setExercises={setExercises}
+                    />
+                  )}
+                </Box>
+              </Card>
+              {editable && (
+                <Button
+                  disabled={!dirty}
+                  type="submit"
+                  variant="outlined"
+                  className={classes.finish}
+                >
+                  FINISH
+                </Button>
+              )}
+            </Form>
+          )}
+        </Formik>
+      </Box>
+    )
   );
 };
 
@@ -238,6 +217,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.blue,
     fontWeight: 700,
   },
+
   label: {
     border: "none",
     fontSize: 32,
@@ -249,45 +229,19 @@ const useStyles = makeStyles((theme) => ({
   labelContainer: {
     maxWidth: "fit-content",
   },
-  addSet: {
-    marginTop: theme.spacing(2),
-  },
-  name: {
-    color: theme.palette.primary.blue,
-    marginBottom: theme.spacing(2),
-    fontSize: 20,
-  },
 
-  columnNames: {
-    display: "flex",
-  },
-  columnName: {
-    fontSize: 12,
-    marginBottom: theme.spacing(1.5),
-    position: "relative",
-  },
-
-  info: {
-    top: "-10px",
-    position: "absolute",
-    right: "45px",
-    border: "1px solid black",
-    borderRadius: "50%",
-    lineHeight: "13px",
-    width: "15px",
-    fontSize: "10px",
-    paddingTop: "1px",
-
-    "&:hover": {
-      cursor: "pointer",
-    },
-  },
   finish: {
     fontWeight: 600,
     color: theme.palette.primary.blue,
     fontSize: 18,
     borderColor: theme.palette.primary.blue,
     marginTop: 20,
+  },
+
+  edit: {
+    display: "flex",
+    gap: theme.spacing(1.5),
+    color: "#0288d1",
   },
 }));
 

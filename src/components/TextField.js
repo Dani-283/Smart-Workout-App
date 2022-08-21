@@ -22,7 +22,6 @@ const TextField = ({
   const classes = useStyles();
   const [field, meta] = useField(name);
   const isError = !!meta.error;
-  console.log(field);
   return (
     <fieldset
       className={

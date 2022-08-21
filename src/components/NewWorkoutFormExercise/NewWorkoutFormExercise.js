@@ -7,18 +7,35 @@ import { removeRdfPrefix } from "@helpers/utils";
 import TextField from "@components/TextField";
 
 import Remove from "@mui/icons-material/Close";
-import { theme } from "@styles/theme";
 import { useFormikContext } from "formik";
+import { GET_EXERCISE_EQUIPMENT } from "@helpers/queries";
+import useGetExerciseEquipment from "@hooks/useGetExerciseEquipment";
 
-const NewWorkoutFormExercise = ({ exercise, addSet, removeSet }) => {
+const NewWorkoutFormExercise = ({
+  exercise,
+  addSet,
+  removeSet,
+  editable,
+  details,
+}) => {
   const classes = useStyles();
-  const { resetForm, values, setFieldValue } = useFormikContext();
-  console.log("vv", values);
+  const { setFieldValue, initialValues } = useFormikContext();
+  console.log(exercise);
+  const equipment =
+    useGetExerciseEquipment(exercise.id, !exercise.equipment) ||
+    exercise.equipment;
+
+  console.log(equipment);
 
   return (
     <Box mt={3} display="flex" flexDirection="column">
       <Typography className={classes.name}>{exercise.label}</Typography>
-      <Box display="flex" flexDirection="column" gap={1}>
+      <Box
+        display="flex"
+        flexDirection="column"
+        gap={editable && 1}
+        mb={!editable && 2.5}
+      >
         {exercise.sets.map((set, i) => (
           <Box key={i} display="flex" justifyContent="space-between">
             <Box>
@@ -32,16 +49,18 @@ const NewWorkoutFormExercise = ({ exercise, addSet, removeSet }) => {
                 {i + 1}
               </Typography>
             </Box>
-            <Box>
-              <Typography
-                align="center"
-                className={clsx(classes.columnName, i > 0 && "hidden")}
-              >
-                PREVIOUS
-              </Typography>
-              <Typography align="center">-</Typography>
-            </Box>
-            {exercise.equipment !== "Bodyweight" && (
+            {!details && (
+              <Box>
+                <Typography
+                  align="center"
+                  className={clsx(classes.columnName, i > 0 && "hidden")}
+                >
+                  PREVIOUS
+                </Typography>
+                <Typography align="center">-</Typography>
+              </Box>
+            )}
+            {equipment !== "Bodyweight" && (
               <Box>
                 <Typography
                   align="center"
@@ -50,6 +69,8 @@ const NewWorkoutFormExercise = ({ exercise, addSet, removeSet }) => {
                   WEIGHTS
                 </Typography>
                 <TextField
+                  className={clsx(!editable && classes.notEditable)}
+                  disabled={!editable}
                   type="number"
                   name={`${removeRdfPrefix(exercise.id)}-set_${
                     set.order
@@ -65,6 +86,8 @@ const NewWorkoutFormExercise = ({ exercise, addSet, removeSet }) => {
                 REPS
               </Typography>
               <TextField
+                className={clsx(!editable && classes.notEditable)}
+                disabled={!editable}
                 type="number"
                 name={`${removeRdfPrefix(exercise.id)}-set_${set.order}-reps`}
               />
@@ -78,45 +101,55 @@ const NewWorkoutFormExercise = ({ exercise, addSet, removeSet }) => {
                 <span className={classes.info}>?</span>
               </Typography>
               <TextField
+                className={clsx(!editable && classes.notEditable)}
+                disabled={!editable}
                 type="number"
                 name={`${removeRdfPrefix(exercise.id)}-set_${set.order}-rir`}
               />
             </Box>
-            <Button
-              className={classes.removeIcon}
-              onClick={() => {
-                removeSet(exercise.id, i);
-                setFieldValue(
-                  `${removeRdfPrefix(exercise.id)}-set_${set.order}-weight`,
-                  ""
-                );
-                setFieldValue(
-                  `${removeRdfPrefix(exercise.id)}-set_${set.order}-reps`,
-                  ""
-                );
-                setFieldValue(
-                  `${removeRdfPrefix(exercise.id)}-set_${set.order}-rir`,
-                  ""
-                );
-              }}
-            >
-              <Remove />
-            </Button>
+            {editable && (
+              <Button
+                className={classes.removeIcon}
+                onClick={() => {
+                  removeSet(exercise.id, i);
+                  setFieldValue(
+                    `${removeRdfPrefix(exercise.id)}-set_${set.order}-weight`,
+                    ""
+                  );
+                  setFieldValue(
+                    `${removeRdfPrefix(exercise.id)}-set_${set.order}-reps`,
+                    ""
+                  );
+                  setFieldValue(
+                    `${removeRdfPrefix(exercise.id)}-set_${set.order}-rir`,
+                    ""
+                  );
+                }}
+              >
+                <Remove />
+              </Button>
+            )}
           </Box>
         ))}
       </Box>
-      <Button
-        className={clsx(classes.addButton, classes.addSet)}
-        onClick={() => addSet(exercise.id)}
-      >
-        + Add Set
-      </Button>
+      {editable && (
+        <Button
+          className={clsx(classes.addButton, classes.addSet)}
+          onClick={() => addSet(exercise.id)}
+        >
+          + Add Set
+        </Button>
+      )}
     </Box>
   );
 };
 
 NewWorkoutFormExercise.propTypes = {
   exercise: PropTypes.object,
+  addSet: PropTypes.func,
+  removeSet: PropTypes.func,
+  editable: PropTypes.bool,
+  details: PropTypes.bool,
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -127,7 +160,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   addSet: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(3),
   },
   name: {
     color: theme.palette.primary.blue,
@@ -166,6 +199,10 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       cursor: "pointer",
     },
+  },
+
+  notEditable: {
+    border: "none",
   },
 }));
 
