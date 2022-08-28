@@ -1,28 +1,28 @@
 import useGetExerciseLabel from "@hooks/useGetExerciseLabel";
-import { Box, TableRow, TableCell } from "@mui/material";
+import { Box, TableRow, TableCell, useMediaQuery } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import clsx from "clsx";
 
 import React from "react";
 
 const ExerciseRow = ({ sets, id }) => {
   const { data: label } = useGetExerciseLabel(id);
+  const matches = useMediaQuery("(min-width:425px)");
   const classes = useStyles();
 
   return (
     <TableRow key={id} sx={{ border: 0 }}>
       <TableCell
-        className={classes.tableCell}
-        sx={{ border: 0 }}
+        className={clsx(classes.tableCell, classes.label)}
         scope="row"
-        width="40%"
+        width={matches ? "40%" : "33%"}
       >
         {label}
       </TableCell>
       <TableCell
         className={classes.tableCell}
-        sx={{ border: 0 }}
         align="left"
-        width="40%"
+        width={matches ? "40%" : "27%"}
       >
         <Box display="flex">
           {sets[id][0].weight !== null ? (
@@ -38,9 +38,8 @@ const ExerciseRow = ({ sets, id }) => {
       </TableCell>
       <TableCell
         className={classes.tableCell}
-        sx={{ border: 0 }}
         align="left"
-        width="40%"
+        width={matches ? "40%" : "27%"}
       >
         <Box display="flex">
           {sets[id].map((item, i) => (
@@ -55,7 +54,29 @@ const ExerciseRow = ({ sets, id }) => {
 };
 
 const useStyles = makeStyles((theme) => ({
-  tableCell: { paddingTop: 8, paddingBottom: 8 },
+  label: {
+    [theme.breakpoints.down(theme.breakpoints.values.sm)]: {
+      whiteSpace: "nowrap",
+      textOverflow: "ellipsis",
+      overflow: "hidden",
+      maxWidth: "26vw",
+    },
+  },
+
+  tableCell: {
+    paddingTop: 8,
+    paddingBottom: 8,
+    border: 0,
+
+    [theme.breakpoints.down(theme.breakpoints.values.s)]: {
+      paddingRight: 0,
+      paddingLeft: 12,
+
+      "& p": {
+        fontSize: 14,
+      },
+    },
+  },
 
   exName: {
     width: "100%",

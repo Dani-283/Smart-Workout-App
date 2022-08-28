@@ -8,6 +8,7 @@ import { Typography } from "@mui/material";
 import Link from "next/link";
 import PageContainer from "@components/PageContainer";
 import { getMonth } from "date-fns";
+import BackButton from "@components/BackButton";
 
 const History = () => {
   const user = {
@@ -38,10 +39,16 @@ const History = () => {
 
   return (
     <PageContainer>
+      <BackButton />
       <Typography variant="h1" sx={{ marginBottom: 4 }}>
         History
       </Typography>
-      <Box display="flex" flexDirection="column" gap={4} p={3}>
+      <Box
+        display="flex"
+        flexDirection="column"
+        gap={4}
+        className={classes.cards}
+      >
         {formattedWorkouts?.map((wkout) => (
           <Link href={`workout/${wkout.id}`} key={wkout.id}>
             <a>
@@ -58,6 +65,12 @@ const History = () => {
   );
 };
 
-const useStyles = makeStyles((theme) => ({}));
+const useStyles = makeStyles((theme) => ({
+  cards: {
+    [theme.breakpoints.up(theme.breakpoints.values.sm)]: {
+      padding: theme.spacing(3),
+    },
+  },
+}));
 
 export default History;

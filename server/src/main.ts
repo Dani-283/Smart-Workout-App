@@ -8,6 +8,7 @@ async function bootstrap() {
     credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
   });
+
   await app.listen(8080);
 }
 bootstrap();

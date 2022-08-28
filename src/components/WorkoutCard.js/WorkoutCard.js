@@ -1,14 +1,7 @@
 import ExerciseRow from "@components/ExerciseRow";
 import { getExerciseNameFromId } from "@helpers/utils";
 import useGetSetsByWorkout from "@hooks/useGetSetsByWorkout";
-import {
-  Box,
-  Card,
-  Menu,
-  MenuItem,
-  TableHead,
-  Typography,
-} from "@mui/material";
+import { Box, Menu, MenuItem, TableHead, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
 import PropTypes from "prop-types";
@@ -23,7 +16,6 @@ import { format } from "date-fns";
 import More from "@mui/icons-material/MoreVert";
 import { useState } from "react";
 import workoutApi from "@api/workout";
-import { QueryClient } from "react-query";
 import { queryClient } from "@api/base";
 
 const WorkoutCard = ({ data, sets, groupMonth }) => {
@@ -54,7 +46,7 @@ const WorkoutCard = ({ data, sets, groupMonth }) => {
   };
 
   return (
-    <>
+    <Box maxWidth={960} margin="auto">
       {groupMonth && (
         <p className={classes.month}>
           {format(new Date(data.createdAt), "MMMM")}
@@ -63,7 +55,7 @@ const WorkoutCard = ({ data, sets, groupMonth }) => {
       <TableContainer component={Paper} sx={{ paddingBottom: 2 }}>
         <div className={classes.title}>
           <div>
-            <h3>{data.title}</h3>
+            <Typography variant="h3">{data.title}</Typography>
             <p>{date}</p>
           </div>
           <More onClick={(event) => handleClick(event)} />
@@ -112,7 +104,7 @@ const WorkoutCard = ({ data, sets, groupMonth }) => {
           </TableBody>
         </Table>
       </TableContainer>
-    </>
+    </Box>
   );
 };
 
@@ -121,17 +113,28 @@ WorkoutCard.propTypes = {
 };
 
 const useStyles = makeStyles((theme) => ({
-  card: { padding: theme.spacing(2, 3, 3) },
-  header: { color: theme.palette.primary.blue, fontWeight: 600 },
+  header: {
+    color: theme.palette.primary.blue,
+    fontWeight: 600,
+    [theme.breakpoints.down(theme.breakpoints.values.s)]: {
+      paddingRight: 0,
+      paddingLeft: 12,
+    },
+  },
   title: {
     padding: theme.spacing(2, 2, 0),
     display: "flex",
     alignItems: "baseline",
     justifyContent: "space-between",
-
-    "& h3": {
-      fontSize: 26,
+    [theme.breakpoints.down(theme.breakpoints.values.s)]: {
+      paddingInline: 12,
     },
+
+    // "& h3": {
+    //   [theme.breakpoints.up(theme.breakpoints.values.sm)]: {
+    //     fontSize: 26,
+    //   },
+    // },
 
     "& p ": {
       opacity: 0.8,

@@ -20,32 +20,47 @@ const NewWorkoutFormExercise = ({
 }) => {
   const classes = useStyles();
   const { setFieldValue, initialValues } = useFormikContext();
-  console.log(exercise);
   const equipment =
     useGetExerciseEquipment(exercise.id, !exercise.equipment) ||
     exercise.equipment;
 
-  console.log(equipment);
-
   return (
-    <Box mt={3} display="flex" flexDirection="column">
-      <Typography className={classes.name}>{exercise.label}</Typography>
+    <Box
+      mb={!editable && 4.5}
+      mt={editable && 3}
+      display="flex"
+      flexDirection="column"
+      maxWidth={details && 760}
+    >
+      <Typography className={classes.name} mb={editable ? 2 : 0}>
+        {exercise.label}
+      </Typography>
       <Box
         display="flex"
         flexDirection="column"
         gap={editable && 1}
-        mb={!editable && 2.5}
+        mt={!editable && 2}
       >
         {exercise.sets.map((set, i) => (
-          <Box key={i} display="flex" justifyContent="space-between">
+          <Box key={i} display="flex" justifyContent="space-between" gap={0.75}>
             <Box>
               <Typography
                 align="center"
-                className={clsx(classes.columnName, i > 0 && "hidden")}
+                className={clsx(
+                  classes.columnName,
+                  !editable && classes.smallMargin,
+                  i > 0 && classes.hideTitles
+                )}
               >
                 SET
               </Typography>
-              <Typography className={classes.setNum} align="center">
+              <Typography
+                className={clsx(
+                  classes.setNum,
+                  !editable && classes.notEditableNum
+                )}
+                align="center"
+              >
                 {i + 1}
               </Typography>
             </Box>
@@ -53,9 +68,13 @@ const NewWorkoutFormExercise = ({
               <Box>
                 <Typography
                   align="center"
-                  className={clsx(classes.columnName, i > 0 && "hidden")}
+                  className={clsx(
+                    classes.columnName,
+                    !editable && classes.smallMargin,
+                    i > 0 && classes.hideTitles
+                  )}
                 >
-                  PREVIOUS
+                  PREV
                 </Typography>
                 <Typography align="center">-</Typography>
               </Box>
@@ -64,11 +83,16 @@ const NewWorkoutFormExercise = ({
               <Box>
                 <Typography
                   align="center"
-                  className={clsx(classes.columnName, i > 0 && "hidden")}
+                  className={clsx(
+                    classes.columnName,
+                    !editable && classes.smallMargin,
+                    i > 0 && classes.hideTitles
+                  )}
                 >
                   WEIGHTS
                 </Typography>
                 <TextField
+                  containerClassName={classes.textField}
                   className={clsx(!editable && classes.notEditable)}
                   disabled={!editable}
                   type="number"
@@ -81,11 +105,16 @@ const NewWorkoutFormExercise = ({
             <Box>
               <Typography
                 align="center"
-                className={clsx(classes.columnName, i > 0 && "hidden")}
+                className={clsx(
+                  classes.columnName,
+                  !editable && classes.smallMargin,
+                  i > 0 && classes.hideTitles
+                )}
               >
                 REPS
               </Typography>
               <TextField
+                containerClassName={classes.textField}
                 className={clsx(!editable && classes.notEditable)}
                 disabled={!editable}
                 type="number"
@@ -95,12 +124,17 @@ const NewWorkoutFormExercise = ({
             <Box>
               <Typography
                 align="center"
-                className={clsx(classes.columnName, i > 0 && "hidden")}
+                className={clsx(
+                  classes.columnName,
+                  !editable && classes.smallMargin,
+                  i > 0 && classes.hideTitles
+                )}
               >
                 RIR
                 <span className={classes.info}>?</span>
               </Typography>
               <TextField
+                containerClassName={classes.textField}
                 className={clsx(!editable && classes.notEditable)}
                 disabled={!editable}
                 type="number"
@@ -159,17 +193,31 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 700,
   },
 
+  textField: {
+    [theme.breakpoints.down(theme.breakpoints.values.s)]: {
+      margin: "auto",
+      maxWidth: "90%",
+      minWidth: 50,
+    },
+  },
+
   addSet: {
     marginTop: theme.spacing(3),
   },
   name: {
     color: theme.palette.primary.blue,
-    marginBottom: theme.spacing(2),
     fontSize: 20,
   },
-
+  hideTitles: {
+    visibility: "hidden",
+    height: 8,
+  },
   setNum: {
+    color: theme.palette.primary.blue,
     marginTop: theme.spacing(2),
+  },
+  notEditableNum: {
+    marginTop: theme.spacing(0.75),
   },
 
   columnName: {
@@ -178,17 +226,24 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
   },
 
+  smallMargin: {
+    marginBottom: theme.spacing(0.5),
+  },
+
   removeIcon: {
     minWidth: "unset",
     height: "fit-content",
-    marginTop: theme.spacing(4),
+    alignSelf: "flex-end",
     color: theme.palette.text.error,
+
+    [theme.breakpoints.down(theme.breakpoints.values.s)]: {
+      paddingInline: 0,
+    },
   },
 
   info: {
     top: "-10px",
     position: "absolute",
-    right: "45px",
     border: "1px solid black",
     borderRadius: "50%",
     lineHeight: "13px",
@@ -199,10 +254,15 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       cursor: "pointer",
     },
+
+    [theme.breakpoints.up(theme.breakpoints.values.sm)]: {
+      right: "45px",
+    },
   },
 
   notEditable: {
     border: "none",
+    padding: 6,
   },
 }));
 

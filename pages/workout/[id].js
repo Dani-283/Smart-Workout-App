@@ -1,4 +1,5 @@
 import Layout from "@components/Layout";
+import PageContainer from "@components/PageContainer";
 import NewWorkoutFormo from "@features/NewWorkoutFormo";
 import { getExerciseNameFromId, removeRdfPrefix } from "@helpers/utils";
 import useGetFormattedSetsByWorkoutIds from "@hooks/useGetFormattedSetsByWorkoutIds";
@@ -8,9 +9,6 @@ import useGetWorkoutById from "@hooks/useGetWorkoutById";
 const WorkoutDetails = ({ id }) => {
   const { sets } = useGetFormattedSetsByWorkoutIds([id]);
   const { data: workout } = useGetWorkoutById(Number(id));
-
-  console.log("w2", workout);
-  console.log("setjovi", sets);
 
   const exercises =
     Object.keys(sets).length &&
@@ -26,9 +24,13 @@ const WorkoutDetails = ({ id }) => {
 
   return (
     <Layout workout>
-      {exercises && workout && (
-        <NewWorkoutFormo data={exercises} workout={workout} />
-      )}
+      <PageContainer>
+        {exercises && workout ? (
+          <NewWorkoutFormo data={exercises} workout={workout} />
+        ) : (
+          ""
+        )}
+      </PageContainer>
     </Layout>
   );
 };

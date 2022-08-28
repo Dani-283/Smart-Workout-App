@@ -15,7 +15,7 @@ const NewWorkoutForm = () => {
   const router = useRouter();
   const [showExerciseModal, setShowExerciseModal] = useState(false);
   const [exercises, setExercises] = useState([]);
-
+  console.log(router);
   const addSet = (exerciseId) => {
     const exercise = exercises.find((ex) => ex.id === exerciseId);
     const setNum = exercise.sets.length;
@@ -90,19 +90,23 @@ const NewWorkoutForm = () => {
       userId: 1,
     });
     queryClient.invalidateQueries(["workouts", 1]);
+    queryClient.invalidateQueries(["sets", workout.id]);
 
     router.push("/?tab=history");
   };
 
   return (
-    <Box p={3}>
+    <Box maxWidth={960} margin="auto">
       <Formik
         initialValues={{ workoutTitle: `Today's workout` }}
         onSubmit={async (values) => create(values)}
       >
         {({ dirty }) => (
           <Form className={classes.form}>
-            <Card sx={{ padding: 3 }}>
+            <Card
+              className={classes.card}
+              sx={{ padding: 3, maxWidth: 960, margin: "auto" }}
+            >
               <Box display="flex" flexDirection="column">
                 <TextField
                   className={classes.label}
@@ -119,13 +123,15 @@ const NewWorkoutForm = () => {
                     editable
                   />
                 ))}
-                <Button
-                  disableRipple
-                  className={classes.addButton}
-                  onClick={() => setShowExerciseModal(true)}
-                >
-                  + Add Exercise
-                </Button>
+                <Box display="flex">
+                  <Button
+                    disableRipple
+                    className={classes.addButton}
+                    onClick={() => setShowExerciseModal(true)}
+                  >
+                    + Add Exercise
+                  </Button>
+                </Box>
 
                 {showExerciseModal && (
                   <ChooseExercise
@@ -135,14 +141,23 @@ const NewWorkoutForm = () => {
                 )}
               </Box>
             </Card>
-            <Button
-              disabled={!dirty}
-              type="submit"
-              variant="outlined"
-              className={classes.finish}
-            >
-              FINISH
-            </Button>
+            <Box display="flex" gap={3} justifyContent="center">
+              <Button
+                disabled={!dirty || !exercises.length}
+                type="submit"
+                variant="outlined"
+                className={classes.finish}
+              >
+                FINISH
+              </Button>
+              <Button
+                variant="outlined"
+                className={classes.cancel}
+                onClick={() => router.back()}
+              >
+                CANCEL
+              </Button>
+            </Box>
           </Form>
         )}
       </Formik>
@@ -164,9 +179,19 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 700,
     textAlign: "left",
     paddingLeft: 0,
+
+    [theme.breakpoints.down(theme.breakpoints.values.sm)]: {
+      fontSize: 22,
+    },
   },
   labelContainer: {
     maxWidth: "fit-content",
+  },
+
+  card: {
+    [theme.breakpoints.down(theme.breakpoints.values.sm)]: {
+      padding: theme.spacing(1),
+    },
   },
 
   finish: {
@@ -175,6 +200,19 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 18,
     borderColor: theme.palette.primary.blue,
     marginTop: 20,
+    minWidth: 105,
+  },
+
+  cancel: {
+    fontWeight: 600,
+    color: "red",
+    fontSize: 18,
+    borderColor: "red",
+    marginTop: 20,
+
+    // [theme.breakpoints.down(theme.breakpoints.values.sm)]: {
+    //   marginLeft: "auto",
+    // },
   },
 }));
 

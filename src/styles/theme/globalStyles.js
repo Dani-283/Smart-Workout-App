@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) =>
       "#__next": {
         minHeight: "100vh",
         position: "relative",
+        overflow: "hidden",
       },
 
       ".noHoverButton": {

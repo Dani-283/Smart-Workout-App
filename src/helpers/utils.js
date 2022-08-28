@@ -2,16 +2,28 @@ import config from "src/config";
 
 export const filterDataObject = (arr, key, val) => [
   ...arr
-    ?.reduce((acc, { [key]: keyProp, [val]: valProp }) => {
-      const group = acc.get(keyProp);
+    ?.reduce(
+      (acc, { [key]: keyProp, [val]: valProp, label, equipment, primary }) => {
+        const group = acc.get(keyProp);
+        const hasSecondary = !!group?.secondary;
+        const shouldPush = !!group && !!valProp && hasSecondary;
 
-      const hasSecondary = group && !!group?.secondary && !!valProp;
+        shouldPush
+          ? group[val].push(valProp[0])
+          : hasSecondary
+          ? null
+          : acc.set(keyProp, {
+              [key]: keyProp,
+              [val]: valProp,
+              label,
+              equipment,
+              primary,
+            });
 
-      hasSecondary
-        ? group[val].push(valProp[0])
-        : acc.set(keyProp, { [key]: keyProp, [val]: valProp });
-      return acc;
-    }, new Map())
+        return acc;
+      },
+      new Map()
+    )
     .values(),
 ];
 
@@ -20,6 +32,11 @@ export const getExerciseNameFromId = (id) => {
   const re = new RegExp("_", "g");
 
   return filteredName[1].replace(re, " ");
+};
+
+export const removeUnderline = (text) => {
+  const re = new RegExp("_", "g");
+  return text.replace(re, " ");
 };
 
 export const removeRdfPrefix = (id) => {

@@ -100,6 +100,7 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: 22,
     fontWeight: 600,
+    whiteSpace: "nowrap",
   },
   name: {
     fontSize: 18,

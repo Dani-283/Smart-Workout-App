@@ -22,8 +22,8 @@ const Exercises = () => {
 
   // const { data: sets } = useGetSetsByWorkoutIds(ids);
 
-  // const { data: sets } = useGetSetsByWorkout(first?.id);
-  // const count = useCountTargetMuscles(sets);
+  const { data: sets } = useGetSetsByWorkout(115);
+  const count = useCountTargetMuscles(sets);
 
   let date = new Date();
   date.setDate(new Date().getDate() + 7);

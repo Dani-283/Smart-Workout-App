@@ -1,9 +1,9 @@
 import workoutApi from "@api/workout";
 import { useQuery } from "react-query";
 
-const useGetUserWorkouts = (user, range) => {
-  return useQuery(["workouts", user.id], async () =>
-    workoutApi.getUserWorkouts(user.id, range)
+const useGetUserWorkouts = (user, start, end) => {
+  return useQuery(["workouts", user.id, start, end], async () =>
+    workoutApi.getUserWorkouts(user.id, start, end)
   );
 };
 

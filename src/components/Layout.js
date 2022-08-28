@@ -1,4 +1,4 @@
-import DrawerComponent from "@features/Drawer/Drawer";
+import Navigation from "@features/Navigation";
 import Head from "next/head";
 import PropTypes from "prop-types";
 
@@ -8,7 +8,8 @@ const Layout = ({ children, workout }) => {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <DrawerComponent content={children} workout={workout} />
+
+      <Navigation content={children} workout={workout} />
       {/* <main>{children}</main> */}
     </>
   );

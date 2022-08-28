@@ -1,5 +1,6 @@
 import { Workout } from '.prisma/client';
 import { Injectable } from '@nestjs/common';
+import { start } from 'repl';
 import { PrismaService } from '../../common/services/prisma.service';
 
 @Injectable()
@@ -9,15 +10,51 @@ export class WorkoutService {
     return this.prisma.workout.findUnique({ where: { id: workoutId } });
   }
 
-  public getManyByUser(userId: number, range: number) {
-    const date = new Date();
+  public getCountPerWeek(userId: number, startDate: Date) {
+    const endDate = new Date(startDate);
+    endDate.setDate(endDate.getDate() + 7);
 
-    date.setDate(date.getDate() - range);
+    return this.prisma.workout.count({
+      where: { createdAt: { gte: startDate, lte: endDate } },
+    });
+
+    // console.log('start', startDate);
+    // console.log('end', endDate);
+  }
+
+  // public getManyByUser(userId: number, range: number) {
+  //   const date = new Date();
+
+  //   date.setDate(date.getDate() - range);
+  //   return this.prisma.workout.findMany({
+  //     where: {
+  //       userId,
+  //       createdAt: {
+  //         gte: date,
+  //       },
+  //     },
+  //     orderBy: { createdAt: 'desc' },
+  //   });
+  // }
+
+  public getManyByUser(userId: number, begin: number, end: number) {
+    const beginDate = new Date();
+    const endDate = new Date();
+
+    beginDate.setDate(beginDate.getDate() - begin);
+    endDate.setDate(endDate.getDate() - end);
+
+    beginDate.setUTCHours(0, 0, 0, 0);
+    endDate.setUTCHours(0, 0, 0, 0);
+
+    console.log(beginDate);
+
     return this.prisma.workout.findMany({
       where: {
         userId,
         createdAt: {
-          gte: date,
+          gte: beginDate,
+          lte: endDate,
         },
       },
       orderBy: { createdAt: 'desc' },

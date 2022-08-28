@@ -1,17 +1,19 @@
-import { GET_ALL_EXERCISES } from "@helpers/queries";
+import {
+  GET_ALL_EXERCISES,
+  GET_COMPOUNDS,
+  GET_ISOLATIONS,
+} from "@helpers/queries";
 import { filterDataObject } from "@helpers/utils";
 import { useQuery } from "react-query";
 
 const useGetExercises = () => {
   const QueryEngine = require("@comunica/query-sparql").QueryEngine;
   const myEngine = new QueryEngine();
-
-  return useQuery("bruh", async () => {
+  return useQuery("all-exercises", async () => {
     const bindingsStream = await myEngine.queryBindings(GET_ALL_EXERCISES, {
       sources: ["http://localhost:3030/server"],
     });
     const bindings = await bindingsStream.toArray();
-
     const exercises = bindings.map((ex) => {
       const hasSecondary = ex.has("secondary");
       return {
@@ -27,14 +29,13 @@ const useGetExercises = () => {
       ...item,
       ...(item.secondary && { secondary: [item.secondary] }),
     }));
+    const filteredData = mapped && filterDataObject(mapped, "id", "secondary");
 
-    mapped && filterDataObject(mapped, "id", "secondary");
+    filteredData.forEach((item) => {
+      !item.secondary && delete item.secondary;
+    });
 
-    const filteredExercises = mapped.filter(
-      (value, index, self) => index === self.findIndex((t) => t.id === value.id)
-    );
-
-    return filteredExercises;
+    return filteredData;
   });
 };
 

@@ -30,13 +30,14 @@ const closedMixin = (theme) => ({
 });
 
 export const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-end",
-  padding: theme.spacing(0, 1),
-  background: theme.palette.background.contrast,
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
+  [theme.breakpoints.up(theme.breakpoints.values.sm)]: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: theme.spacing(0, 1),
+    background: theme.palette.background.contrast,
+    ...theme.mixins.toolbar,
+  },
 }));
 
 export const AppBar = styled(MuiAppBar, {
@@ -65,6 +66,7 @@ export const Drawer = styled(MuiDrawer, {
   flexShrink: 0,
   whiteSpace: "nowrap",
   boxSizing: "border-box",
+  // display: "none",
 
   ...(open && {
     ...openedMixin(theme),

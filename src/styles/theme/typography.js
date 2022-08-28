@@ -9,7 +9,7 @@ export default (textColor) => ({
     letterSpacing: "1.5px",
     lineHeight: "32px",
     [`@media (max-width: ${breakpoints.values.xs}px)`]: {
-      fontSize: 20,
+      fontSize: 28,
     },
   },
   h2: {
@@ -25,11 +25,11 @@ export default (textColor) => ({
     fontSize: 32,
     letterSpacing: "-0.06px",
     lineHeight: "40px",
-    [`@media (max-width: ${breakpoints.values.xs}px)`]: {
+    [`@media (max-width: ${breakpoints.values.sm}px)`]: {
       fontSize: 24,
     },
     "@media (max-width:400px)": {
-      fontSize: 20,
+      fontSize: 18,
     },
   },
   h4: {

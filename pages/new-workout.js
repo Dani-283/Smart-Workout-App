@@ -1,3 +1,4 @@
+import BackButton from "@components/BackButton";
 import Layout from "@components/Layout";
 import PageContainer from "@components/PageContainer";
 import NewWorkoutForm from "@features/NewWorkoutForm";
@@ -8,6 +9,7 @@ const NewWorkout = () => {
   return (
     <Layout workout>
       <PageContainer>
+        <BackButton />
         <Typography variant="h1" sx={{ marginBottom: 4 }}>
           New Workout
         </Typography>

@@ -11,8 +11,11 @@ import { queryClient } from "@api/base";
 import NewWorkoutFormExercise from "@components/NewWorkoutFormExercise";
 import Edit from "@mui/icons-material/Edit";
 import { format } from "date-fns";
+import MuscleChart from "@components/MuscleChart";
+import clsx from "clsx";
+import BackButton from "@components/BackButton";
 
-const NewWorkoutFormo = ({ data, workout }) => {
+const NewWorkoutFormo = ({ data, workout, sets }) => {
   const classes = useStyles();
   const router = useRouter();
   const [showExerciseModal, setShowExerciseModal] = useState(false);
@@ -20,17 +23,13 @@ const NewWorkoutFormo = ({ data, workout }) => {
   const [initial, setInitial] = useState([]);
   const [editable, setEditable] = useState(false);
 
-  console.log("yl", data);
-  const { setIds } = useMemo(() => {
-    const setIds = data?.reduce((ids, set) => [...ids, set.id], []);
-
-    return { setIds };
-  }, [data]);
+  const setInitialExercises = () => {};
 
   useEffect(() => {
+    setInitialExercises();
     const ex = {
       ...exercises.reduce((res, u) => {
-        const sets = u.sets.map((set, i) => ({
+        const sets = u.sets.map((set) => ({
           [`${set.id}-weight`]: set.weight,
           [`${set.id}-reps`]: set.reps,
           [`${set.id}-rir`]: set.rir,
@@ -122,60 +121,77 @@ const NewWorkoutFormo = ({ data, workout }) => {
     });
     queryClient.invalidateQueries(["workout", workout.id]);
     queryClient.invalidateQueries(["workouts", 1]);
+    queryClient.invalidateQueries(["sets", workout.id]);
 
-    router.push("/?tab=history");
+    setEditable(false);
   };
 
-  return (
-    Object.keys(initial).length && (
-      <Box p={3}>
-        <Formik
-          initialValues={{ ...initial }}
-          onSubmit={async (values) => create(values)}
-        >
-          {({ dirty }) => (
-            <Form className={classes.form}>
-              <Card sx={{ padding: 3 }}>
-                <Box display="flex" flexDirection="column">
-                  <Box
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
-                  >
-                    <TextField
-                      className={classes.label}
-                      disabled={!editable}
-                      name="workoutTitle"
-                      containerClassName={classes.labelContainer}
-                    />
-                    {!editable && (
-                      <Button
-                        className={classes.edit}
-                        onClick={() => setEditable(true)}
-                      >
-                        <Typography>Edit workout</Typography>
-                        <Edit />
-                      </Button>
-                    )}
-                  </Box>
-                  <p className={classes.month}>
-                    {format(
-                      new Date(workout.createdAt),
-                      "EEEE, MMMM dd, yyyy, k:mm"
-                    )}
-                  </p>
+  return Object.keys(initial).length ? (
+    <Box maxWidth={960} margin="auto">
+      <BackButton />
+      <Formik
+        initialValues={{ ...initial }}
+        onSubmit={async (values) => create(values)}
+      >
+        {({ dirty }) => (
+          <Form className={classes.form}>
+            <Card
+              className={classes.card}
+              sx={{
+                padding: !editable ? "24px 24px 0" : 3,
+              }}
+            >
+              <Box display="flex" flexDirection="column">
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <TextField
+                    className={classes.label}
+                    disabled={!editable}
+                    name="workoutTitle"
+                    containerClassName={classes.labelContainer}
+                  />
+                  {!editable && (
+                    <Button
+                      className={clsx(classes.edit, classes.mobileHidden)}
+                      onClick={() => setEditable(true)}
+                    >
+                      <Typography>Edit workout</Typography>
+                      <Edit className={classes.editIcon} />
+                    </Button>
+                  )}
+                </Box>
+                <p className={classes.month}>
+                  {format(
+                    new Date(workout.createdAt),
+                    "EEEE, MMMM dd, yyyy, k:mm"
+                  )}
+                </p>
 
-                  {exercises.map((ex, i) => (
-                    <NewWorkoutFormExercise
-                      exercise={ex}
-                      key={i}
-                      addSet={addSet}
-                      removeSet={removeSet}
-                      editable={editable}
-                      details
-                    />
-                  ))}
-                  {editable && (
+                <MuscleChart workoutId={workout.id} />
+                {!editable && (
+                  <Button
+                    className={clsx(classes.edit, classes.desktopHidden)}
+                    onClick={() => setEditable(true)}
+                  >
+                    <Typography>Edit workout</Typography>
+                    <Edit className={classes.editIcon} />
+                  </Button>
+                )}
+                {exercises.map((ex, i) => (
+                  <NewWorkoutFormExercise
+                    exercise={ex}
+                    key={i}
+                    addSet={addSet}
+                    removeSet={removeSet}
+                    editable={editable}
+                    details
+                  />
+                ))}
+                {editable && (
+                  <Box maxWidth={760} display="flex">
                     <Button
                       disableRipple
                       className={classes.addButton}
@@ -183,17 +199,19 @@ const NewWorkoutFormo = ({ data, workout }) => {
                     >
                       + Add Exercise
                     </Button>
-                  )}
+                  </Box>
+                )}
 
-                  {showExerciseModal && (
-                    <ChooseExercise
-                      setOpen={setShowExerciseModal}
-                      setExercises={setExercises}
-                    />
-                  )}
-                </Box>
-              </Card>
-              {editable && (
+                {showExerciseModal && (
+                  <ChooseExercise
+                    setOpen={setShowExerciseModal}
+                    setExercises={setExercises}
+                  />
+                )}
+              </Box>
+            </Card>
+            {editable && (
+              <Box display="flex" gap={3} justifyContent="center">
                 <Button
                   disabled={!dirty}
                   type="submit"
@@ -202,12 +220,21 @@ const NewWorkoutFormo = ({ data, workout }) => {
                 >
                   FINISH
                 </Button>
-              )}
-            </Form>
-          )}
-        </Formik>
-      </Box>
-    )
+                <Button
+                  variant="outlined"
+                  className={classes.cancel}
+                  onClick={() => setEditable(false)}
+                >
+                  CANCEL
+                </Button>
+              </Box>
+            )}
+          </Form>
+        )}
+      </Formik>
+    </Box>
+  ) : (
+    ""
   );
 };
 
@@ -218,6 +245,28 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 700,
   },
 
+  card: {
+    marginBottom: 2,
+    margin: "auto",
+    [theme.breakpoints.down(theme.breakpoints.values.sm)]: {
+      boxShadow: "none",
+      padding: 0,
+    },
+  },
+
+  month: {
+    opacity: 0.8,
+    [theme.breakpoints.down(theme.breakpoints.values.sm)]: {
+      fontSize: 14,
+    },
+  },
+
+  editIcon: {
+    [theme.breakpoints.down(theme.breakpoints.values.sm)]: {
+      fontSize: 18,
+    },
+  },
+
   label: {
     border: "none",
     fontSize: 32,
@@ -225,7 +274,13 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 700,
     textAlign: "left",
     paddingLeft: 0,
+
+    [theme.breakpoints.down(theme.breakpoints.values.sm)]: {
+      fontSize: 22,
+      padding: 0,
+    },
   },
+
   labelContainer: {
     maxWidth: "fit-content",
   },
@@ -235,13 +290,46 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.blue,
     fontSize: 18,
     borderColor: theme.palette.primary.blue,
-    marginTop: 20,
+    margin: theme.spacing(2.5, 0),
+    minWidth: 105,
+  },
+
+  cancel: {
+    fontWeight: 600,
+    color: "red",
+    fontSize: 18,
+    borderColor: "red",
+    margin: theme.spacing(2.5, 0),
+    // [theme.breakpoints.down(theme.breakpoints.values.sm)]: {
+    //   marginLeft: "auto",
+    // },
   },
 
   edit: {
     display: "flex",
     gap: theme.spacing(1.5),
+    padding: theme.spacing(1, 2),
     color: "#0288d1",
+    whiteSpace: "nowrap",
+    border: "1px solid",
+
+    [theme.breakpoints.down(theme.breakpoints.values.sm)]: {
+      fontSize: 16,
+      gap: theme.spacing(0.75),
+    },
+  },
+
+  mobileHidden: {
+    [theme.breakpoints.down(theme.breakpoints.values.sm)]: {
+      display: "none",
+    },
+  },
+
+  desktopHidden: {
+    marginBottom: theme.spacing(3),
+    [theme.breakpoints.up(theme.breakpoints.values.sm)]: {
+      display: "none",
+    },
   },
 }));
 

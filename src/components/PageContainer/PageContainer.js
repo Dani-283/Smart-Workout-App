@@ -1,12 +1,24 @@
 import { Container } from "@mui/material";
-import React from "react";
+import { makeStyles } from "@mui/styles";
 
 const PageContainer = ({ children }) => {
+  const classes = useStyles();
+
   return (
-    <Container maxWidth="unset" sx={{ padding: 3, marginTop: 2 }}>
+    <Container
+      maxWidth="unset"
+      className={classes.container}
+      sx={{ padding: 2.5, marginTop: 2, height: "100%" }}
+    >
       {children}
     </Container>
   );
 };
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    marginBottom: 60,
+  },
+}));
 
 export default PageContainer;

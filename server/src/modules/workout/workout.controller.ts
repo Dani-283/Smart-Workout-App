@@ -19,15 +19,53 @@ export class WorkoutController {
   ) {}
 
   @Get(':userId')
+  // getWorkouts(@Param() params, @Request() req) {
+  //   const id = Number(params.userId);
+  //   return this.workoutService.getManyByUser(id, req.query.range);
+  // }
   getWorkouts(@Param() params, @Request() req) {
     const id = Number(params.userId);
-    return this.workoutService.getManyByUser(id, req.query.range);
+    const begin = req.query.range;
+    const end = req.query.rangeEnd;
+    return this.workoutService.getManyByUser(id, begin, end);
   }
 
   @Get('workout/:workoutId')
   getWorkout(@Param() params) {
     const id = Number(params.workoutId);
     return this.workoutService.getById(id);
+  }
+
+  @Get('count/:userId')
+  async getCount(@Param() params, @Request() req) {
+    const id = Number(params.userId);
+    const range = Number(req.query.range);
+    const date = new Date();
+    date.setDate(date.getDate() - range);
+
+    const arr = [];
+    let max = 0;
+
+    for (let index = 0; index < 56; index += 7) {
+      const a = await this.workoutService.getCountPerWeek(id, date);
+      if (a > max) max = a;
+      const obj = {};
+      const end = new Date(date);
+      const start = new Date(date);
+      end.setDate(end.getDate() + 7);
+
+      obj['start'] = start;
+      obj['end'] = end;
+
+      for (let i = 0; i < a; i++) {
+        obj[`w${i + 1}`] = 1;
+      }
+
+      arr.push(obj);
+      date.setDate(date.getDate() + 7);
+    }
+
+    return { data: arr, max: max };
   }
 
   @Put()
