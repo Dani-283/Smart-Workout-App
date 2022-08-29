@@ -2,11 +2,10 @@ import { Formik, Form } from "formik";
 import { makeStyles } from "@mui/styles";
 import { Box, Button, Typography, Card } from "@mui/material";
 import TextField from "@components/TextField";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import ChooseExercise from "@components/ChooseExercise";
 import { removeRdfPrefix } from "@helpers/utils";
 import workoutApi from "@api/workout";
-import { useRouter } from "next/router";
 import { queryClient } from "@api/base";
 import NewWorkoutFormExercise from "@components/NewWorkoutFormExercise";
 import Edit from "@mui/icons-material/Edit";
@@ -15,9 +14,8 @@ import MuscleChart from "@components/MuscleChart";
 import clsx from "clsx";
 import BackButton from "@components/BackButton";
 
-const NewWorkoutFormo = ({ data, workout, sets }) => {
+const NewWorkoutFormo = ({ data, workout, userData }) => {
   const classes = useStyles();
-  const router = useRouter();
   const [showExerciseModal, setShowExerciseModal] = useState(false);
   const [exercises, setExercises] = useState(data);
   const [initial, setInitial] = useState([]);
@@ -116,12 +114,15 @@ const NewWorkoutFormo = ({ data, workout, sets }) => {
     await workoutApi.createWorkout({
       exercises: [...exercises],
       title: values.workoutTitle,
-      userId: 1,
+      userId: userData?.id,
       id: workout.id,
     });
-    queryClient.invalidateQueries(["workout", workout.id]);
-    queryClient.invalidateQueries(["workouts", 1]);
+
     queryClient.invalidateQueries(["sets", workout.id]);
+    queryClient.invalidateQueries(["sets", [workout.id]]);
+    queryClient.invalidateQueries(["workout", workout.id]);
+    queryClient.invalidateQueries(["workouts", userData?.id]);
+    queryClient.invalidateQueries(["workouts-per-week", workout.userId]);
 
     setEditable(false);
   };

@@ -4,9 +4,9 @@ import useCountTargetMuscles from "@hooks/useCountTargetMuscles";
 import useFormatForPieChart from "@hooks/useFormatForPieChart";
 import useGetSetsByWorkoutIds from "@hooks/useGetSetsByWorkoutIds";
 import useGetUserWorkouts from "@hooks/useGetUserWorkouts";
-const useGetPieChartData = (start, end) => {
+const useGetPieChartData = (start, end, user) => {
   const { data: workouts, isLoading: isLoadingWrkts } = useGetUserWorkouts(
-    { id: 1 },
+    user,
     start,
     end
   );
@@ -18,6 +18,9 @@ const useGetPieChartData = (start, end) => {
 
   const { data: sets, isLoading: isLoadingSets } = useGetSetsByWorkoutIds(ids);
   const { count, max, isLoading: isLoadingCount } = useCountTargetMuscles(sets);
+
+  console.log(sets);
+  console.log(count);
 
   const isLoading = isLoadingCount || isLoadingSets || isLoadingWrkts;
 

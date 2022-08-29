@@ -9,22 +9,28 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-
+import LogoutIcon from "@mui/icons-material/Logout";
 import { DrawerHeader, AppBar } from "@components/Drawer/DrawerStyled";
 import { TABS, TABNAMES } from "./constants";
 
-import { Button } from "@mui/material";
-import useHandleRouting from "@hooks/useHandleRouting";
+import { Button, Menu, MenuItem } from "@mui/material";
 import { useRouter } from "next/router";
 import NavDesktop from "@features/Navigation/NavDesktop";
 import clsx from "clsx";
 import NavMobile from "./NavMobile";
+import { useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
+import AccessDenied from "@components/AccessDenied";
 
 const Navigation = ({ content, workout }) => {
   const theme = useTheme();
   const classes = useStyles();
   const router = useRouter();
+  const { data: session, status } = useSession();
+
+  const loading = typeof window !== "undefined" && status === "loading";
+  const show = session && status !== "loading" && typeof window !== "undefined";
+  console.log(show, "ss");
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState();
@@ -40,61 +46,73 @@ const Navigation = ({ content, workout }) => {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <AppBar position="fixed" open={open} className={classes.appBar}>
-        <Toolbar disableGutters className={classes.toolbar}>
-          <div className={classes.desktopHidden}>
-            <NavMobile
-              setOpen={setOpen}
-              open={open}
-              value={value}
-              setValue={setValue}
-              show={!workout}
-            />
-          </div>
-          <IconButton
-            color="info"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={classes.mobileHidden}
-            sx={{
-              paddingLeft: theme.spacing(2.5),
-              marginRight: 5,
-              ...(open && { display: "none" }),
-            }}
-          >
-            <MenuIcon fontSize="large" />
-          </IconButton>
+      {show && (
+        <AppBar position="fixed" open={open} className={classes.appBar}>
+          <Toolbar disableGutters className={classes.toolbar}>
+            <div className={classes.desktopHidden}>
+              <NavMobile
+                setOpen={setOpen}
+                open={open}
+                value={value}
+                setValue={setValue}
+                show={!workout}
+              />
+            </div>
+            <IconButton
+              color="info"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              className={classes.mobileHidden}
+              sx={{
+                paddingLeft: theme.spacing(2.5),
+                marginRight: 5,
+                ...(open && { display: "none" }),
+              }}
+            >
+              <MenuIcon fontSize="large" />
+            </IconButton>
 
-          <Button
-            onClick={() => router.push("/new-workout")}
-            className={classes.workout}
-            variant="contained"
-          >
-            + NEW WORKOUT
-          </Button>
-          <Button
-            variant="outlined"
-            className={clsx(classes.profileButton, classes.mobileHidden)}
-          >
-            <PersonOutlineIcon sx={{ fill: "#0288d1" }} />
-          </Button>
-        </Toolbar>
-      </AppBar>
-      <div className={classes.drawerHide}>
-        <NavDesktop
-          setOpen={setOpen}
-          open={open}
-          value={value}
-          setValue={setValue}
-          show={!workout}
-        />
-      </div>
+            <Button
+              onClick={() => router.push("/new-workout")}
+              className={classes.workout}
+              variant="contained"
+            >
+              + NEW WORKOUT
+            </Button>
+
+            {show && (
+              <Button
+                onClick={() => signOut()}
+                variant="outlined"
+                className={clsx(classes.profileButton, classes.mobileHidden)}
+              >
+                <LogoutIcon sx={{ fill: "#0288d1" }} />
+              </Button>
+            )}
+          </Toolbar>
+        </AppBar>
+      )}
+      {show && (
+        <div className={classes.drawerHide}>
+          <NavDesktop
+            setOpen={setOpen}
+            open={open}
+            value={value}
+            setValue={setValue}
+            show={!workout}
+          />
+        </div>
+      )}
       <main style={{ flexGrow: 1, p: 3 }}>
-        <DrawerHeader />
-        {workout
-          ? content
-          : TABS.map((current) => current.id === value && current.component)}
+        {session && <DrawerHeader />}
+        {workout ? (
+          content
+        ) : loading ? null : show ? ( // TABS.map((current) => current.id === value && current.component)
+          TABS.map((current) => current.id === value && current.component)
+        ) : (
+          <AccessDenied />
+        )}
       </main>
     </Box>
   );

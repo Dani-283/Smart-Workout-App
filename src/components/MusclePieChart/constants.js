@@ -11,6 +11,8 @@ const getRange = (dif, month) => {
 
     const start = date.getDate() - startOn.getDate();
     const end = date.getDate() - endOn.getDate();
+    console.log(end);
+
     return { start, end };
   } else {
     const startDate = new Date();
@@ -20,6 +22,7 @@ const getRange = (dif, month) => {
 
     const start = date.getDate() - startOn.getDate();
     const end = date.getDate() - endOn.getDate();
+    console.log(end);
     return { start, end };
   }
 };

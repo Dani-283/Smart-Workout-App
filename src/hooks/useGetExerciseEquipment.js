@@ -1,4 +1,4 @@
-import { GET_EXERCISE_EQUIPMENT, GET_EXERCISE_LABEL } from "@helpers/queries";
+import { GET_EXERCISE_EQUIPMENT } from "@helpers/queries";
 import { removeRdfPrefix } from "@helpers/utils";
 import { useQuery } from "react-query";
 

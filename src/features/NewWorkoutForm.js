@@ -10,12 +10,12 @@ import { useRouter } from "next/router";
 import { queryClient } from "@api/base";
 import NewWorkoutFormExercise from "@components/NewWorkoutFormExercise";
 
-const NewWorkoutForm = () => {
+const NewWorkoutForm = ({ userData }) => {
   const classes = useStyles();
   const router = useRouter();
-  const [showExerciseModal, setShowExerciseModal] = useState(false);
+  const [showExerciseModal, setShowExerciseModal] = useState(true);
   const [exercises, setExercises] = useState([]);
-  console.log(router);
+
   const addSet = (exerciseId) => {
     const exercise = exercises.find((ex) => ex.id === exerciseId);
     const setNum = exercise.sets.length;
@@ -64,6 +64,7 @@ const NewWorkoutForm = () => {
 
   const create = async (values) => {
     const copy = [...exercises];
+    console.log("at u");
     copy.map((ex) =>
       ex.sets.map((set) =>
         Object.entries(values).find((e) => {
@@ -84,14 +85,16 @@ const NewWorkoutForm = () => {
       })
     );
 
-    await workoutApi.createWorkout({
+    const workout = await workoutApi.createWorkout({
       exercises: [...exercises],
       title: values.workoutTitle,
-      userId: 1,
+      userId: userData?.id,
     });
-    queryClient.invalidateQueries(["workouts", 1]);
+    queryClient.invalidateQueries(["workouts", userData?.id]);
     queryClient.invalidateQueries(["sets", workout.id]);
+    queryClient.invalidateQueries(["workouts-per-week", workout.userId]);
 
+    console.log("ode?");
     router.push("/?tab=history");
   };
 

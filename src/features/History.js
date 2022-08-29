@@ -9,15 +9,20 @@ import Link from "next/link";
 import PageContainer from "@components/PageContainer";
 import { getMonth } from "date-fns";
 import BackButton from "@components/BackButton";
+import { useSession } from "next-auth/react";
+import useGetOrCreateUser from "@hooks/useGetOrCreateUser";
 
 const History = () => {
-  const user = {
-    id: 1,
-  };
+  const { data: session, status } = useSession();
+  const { data: userData } = useGetOrCreateUser(session?.user.email, session);
+
+  if (typeof window !== "undefined" && status === "loading") return null;
 
   const classes = useStyles();
   const prevMonth = useRef();
-  const { data: workouts } = useGetUserWorkouts(user, 90);
+
+  const { data: workouts, isLoading } = useGetUserWorkouts(userData, 90);
+
   const { ids } = useMemo(() => {
     const ids = workouts?.reduce((id, workout) => [...id, workout.id], []);
     return { ids };
@@ -49,17 +54,22 @@ const History = () => {
         gap={4}
         className={classes.cards}
       >
-        {formattedWorkouts?.map((wkout) => (
-          <Link href={`workout/${wkout.id}`} key={wkout.id}>
-            <a>
-              <WorkoutCard
-                data={wkout}
-                sets={sets[wkout.id]}
-                groupMonth={!!wkout.newMonth}
-              />
-            </a>
-          </Link>
-        ))}
+        {formattedWorkouts?.length
+          ? formattedWorkouts.map((wkout) => (
+              <Link href={`workout/${wkout.id}`} key={wkout.id}>
+                <a>
+                  <WorkoutCard
+                    data={wkout}
+                    sets={sets[wkout.id]}
+                    groupMonth={!!wkout.newMonth}
+                  />
+                </a>
+              </Link>
+            ))
+          : !isLoading &&
+            userData && (
+              <Typography textAlign={"center"}>No data to display</Typography>
+            )}
       </Box>
     </PageContainer>
   );

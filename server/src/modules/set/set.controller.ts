@@ -20,6 +20,14 @@ export class SetController {
     return this.setService.getByWorkout(id);
   }
 
+  @Get('prev')
+  async getPreviousWeight(@Request() req) {
+    const name = req.query.name;
+    const order = req.query.order;
+
+    return this.setService.getPreviousWeight(name, order);
+  }
+
   @Get('multiple-by-workoutIds')
   async getSetsByWorkoutIds(@Request() req) {
     if (!req.query.ids) {

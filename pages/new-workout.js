@@ -1,11 +1,27 @@
+import AccessDenied from "@components/AccessDenied";
 import BackButton from "@components/BackButton";
 import Layout from "@components/Layout";
 import PageContainer from "@components/PageContainer";
 import NewWorkoutForm from "@features/NewWorkoutForm";
+import useGetOrCreateUser from "@hooks/useGetOrCreateUser";
 import { Typography } from "@mui/material";
-import React from "react";
+import { useSession } from "next-auth/react";
 
 const NewWorkout = () => {
+  const { data: session, status } = useSession();
+  console.log(useGetOrCreateUser(session?.user.email, session));
+
+  const { data: userData } = useGetOrCreateUser(session?.user.email, session);
+  if (typeof window !== "undefined" && status === "loading") return null;
+  console.log(userData, "data");
+  if (!session) {
+    return (
+      <Layout workout>
+        <AccessDenied />
+      </Layout>
+    );
+  }
+
   return (
     <Layout workout>
       <PageContainer>
@@ -13,7 +29,7 @@ const NewWorkout = () => {
         <Typography variant="h1" sx={{ marginBottom: 4 }}>
           New Workout
         </Typography>
-        <NewWorkoutForm />
+        <NewWorkoutForm userData={userData} />
       </PageContainer>
     </Layout>
   );

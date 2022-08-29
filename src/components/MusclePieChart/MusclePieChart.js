@@ -21,7 +21,7 @@ import Select from "@mui/material/Select";
 import { useState } from "react";
 import { VALUES } from "./constants";
 
-const MusclePieChart = () => {
+const MusclePieChart = ({ userData }) => {
   const [timePeriod, setTimePeriod] = useState(VALUES[0]);
   const matches = useMediaQuery("(min-width:767px)");
 
@@ -31,9 +31,10 @@ const MusclePieChart = () => {
 
   const { data, isLoading } = useGetPieChartData(
     timePeriod.start,
-    timePeriod.end
+    timePeriod.end,
+    userData
   );
-  console.log(isLoading);
+
   const renderLegend = (value) => {
     return <span>{removeUnderline(value)}</span>;
   };

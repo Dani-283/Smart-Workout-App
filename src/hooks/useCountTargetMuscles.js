@@ -7,10 +7,6 @@ import useTargetsChest from "./useTargetsChest";
 
 const useCountTargetMuscles = (sets) => {
   const { data, isLoading } = useGetExercises();
-  const { ids } = useMemo(() => {
-    const ids = sets?.reduce((id, set) => [...id, set.exerciseId], []);
-    return { ids };
-  }, [sets]);
 
   const exercises = data
     ? sets?.map((ex) => {

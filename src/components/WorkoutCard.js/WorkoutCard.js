@@ -37,6 +37,8 @@ const WorkoutCard = ({ data, sets, groupMonth }) => {
     e.preventDefault();
     await workoutApi.deleteWorkout(data.id);
     queryClient.invalidateQueries(["workouts", data.userId]);
+    queryClient.invalidateQueries(["workouts-per-week", data.userId]);
+
     handleClose(e);
   };
   const handleClose = (e) => {

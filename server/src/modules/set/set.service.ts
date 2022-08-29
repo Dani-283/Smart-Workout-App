@@ -6,6 +6,7 @@ import { PrismaService } from '../../common/services/prisma.service';
 export class SetService {
   constructor(private prisma: PrismaService) {}
   public getByWorkout(workoutId: number) {
+    if (workoutId === undefined) return null;
     return this.prisma.set.findMany({ where: { workoutId } });
   }
 
@@ -22,38 +23,29 @@ export class SetService {
         },
       },
     });
-    // return this.prisma.set.groupBy({
-    //   by: ['exerciseId'],
-    //   where: {
-    //     workoutId: {
-    //       in: ids,
-    //     },
-    //   },
-    // });
   }
 
-  // public async group(workoutId) {
-  //   const groupUsers = await this.prisma.set.groupBy({
-  //     by: ['exerciseId'],
-  //     where: {
-  //       workoutId,
-  //     },
-  //   });
-  // }
+  public async getPreviousWeight(id: string, order: number) {
+    const lastSet = await this.prisma.set.findFirst({
+      orderBy: [{ createdAt: 'desc' }, { order: 'asc' }],
+      where: {
+        exerciseId: {
+          contains: id,
+        },
+      },
+    });
+    return this.prisma.set.findFirst({
+      where: {
+        exerciseId: {
+          contains: id,
+        },
+        workoutId: lastSet.workoutId,
+        order: Number(order),
+      },
+    });
+  }
 
   public createSet(set: Set): Promise<Set> {
-    // return this.prisma.set.create({
-    //   data: {
-    //     createdAt: set.createdAt,
-    //     description: set.description,
-    //     exerciseId: set.exerciseId,
-    //     workoutId: set.workoutId,
-    //     rir: set.rir,
-    //     weight: set.weight,
-    //     reps: set.reps,
-    //     order: set.order,
-    //   },
-    // });
     return this.prisma.set.upsert({
       create: {
         createdAt: set.createdAt,

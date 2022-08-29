@@ -12,30 +12,15 @@ export class WorkoutService {
 
   public getCountPerWeek(userId: number, startDate: Date) {
     const endDate = new Date(startDate);
-    endDate.setDate(endDate.getDate() + 7);
+    const startDateHours = new Date(startDate);
+    endDate.setDate(endDate.getDate() + 6);
+    startDateHours.setUTCHours(0, 0, 0, 0);
 
+    console.log(endDate);
     return this.prisma.workout.count({
-      where: { createdAt: { gte: startDate, lte: endDate } },
+      where: { userId, createdAt: { gte: startDateHours, lte: endDate } },
     });
-
-    // console.log('start', startDate);
-    // console.log('end', endDate);
   }
-
-  // public getManyByUser(userId: number, range: number) {
-  //   const date = new Date();
-
-  //   date.setDate(date.getDate() - range);
-  //   return this.prisma.workout.findMany({
-  //     where: {
-  //       userId,
-  //       createdAt: {
-  //         gte: date,
-  //       },
-  //     },
-  //     orderBy: { createdAt: 'desc' },
-  //   });
-  // }
 
   public getManyByUser(userId: number, begin: number, end: number) {
     const beginDate = new Date();
@@ -43,11 +28,7 @@ export class WorkoutService {
 
     beginDate.setDate(beginDate.getDate() - begin);
     endDate.setDate(endDate.getDate() - end);
-
     beginDate.setUTCHours(0, 0, 0, 0);
-    endDate.setUTCHours(0, 0, 0, 0);
-
-    console.log(beginDate);
 
     return this.prisma.workout.findMany({
       where: {

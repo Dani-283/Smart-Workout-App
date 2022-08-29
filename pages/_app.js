@@ -8,10 +8,13 @@ import GlobalStyles from "@styles/theme/globalStyles";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { queryClient } from "@api/base";
+
+import { SessionProvider } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+
 function MyApp({ Component, pageProps }) {
-  // const queryClient = new QueryClient();
   useEffect(() => {
-    // Remove the server-side injected CSS.
     const jssStyles = document.querySelector("#jss-server-side");
 
     if (jssStyles) {
@@ -21,14 +24,17 @@ function MyApp({ Component, pageProps }) {
   const lightTheme = createTheme(theme);
 
   return (
-    <ThemeProvider theme={lightTheme}>
-      <QueryClientProvider client={queryClient}>
-        <CssBaseline />
-        <GlobalStyles />
-
-        <Component {...pageProps} />
-      </QueryClientProvider>
-    </ThemeProvider>
+    <SessionProvider session={pageProps.session}>
+      <ThemeProvider theme={lightTheme}>
+        <QueryClientProvider client={queryClient}>
+          <CssBaseline />
+          <GlobalStyles />
+          {/* <Protected router={router}> */}
+          <Component {...pageProps} />
+          {/* </Protected> */}
+        </QueryClientProvider>
+      </ThemeProvider>
+    </SessionProvider>
   );
 }
 

@@ -1,14 +1,27 @@
+import AccessDenied from "@components/AccessDenied";
 import Layout from "@components/Layout";
 import PageContainer from "@components/PageContainer";
 import NewWorkoutFormo from "@features/NewWorkoutFormo";
 import { getExerciseNameFromId, removeRdfPrefix } from "@helpers/utils";
 import useGetFormattedSetsByWorkoutIds from "@hooks/useGetFormattedSetsByWorkoutIds";
-import useGetSetsByWorkout from "@hooks/useGetSetsByWorkout";
+import useGetOrCreateUser from "@hooks/useGetOrCreateUser";
 import useGetWorkoutById from "@hooks/useGetWorkoutById";
+import { useSession } from "next-auth/react";
 
 const WorkoutDetails = ({ id }) => {
   const { sets } = useGetFormattedSetsByWorkoutIds([id]);
   const { data: workout } = useGetWorkoutById(Number(id));
+  const { data: session, status } = useSession();
+  const { data: userData } = useGetOrCreateUser(session?.user.email, session);
+  if (typeof window !== "undefined" && status === "loading") return null;
+
+  if (!session) {
+    return (
+      <Layout workout>
+        <AccessDenied />
+      </Layout>
+    );
+  }
 
   const exercises =
     Object.keys(sets).length &&
@@ -26,7 +39,11 @@ const WorkoutDetails = ({ id }) => {
     <Layout workout>
       <PageContainer>
         {exercises && workout ? (
-          <NewWorkoutFormo data={exercises} workout={workout} />
+          <NewWorkoutFormo
+            data={exercises}
+            workout={workout}
+            userData={userData}
+          />
         ) : (
           ""
         )}

@@ -42,17 +42,20 @@ export class WorkoutController {
     const range = Number(req.query.range);
     const date = new Date();
     date.setDate(date.getDate() - range);
-
+    console.log(date);
+    console.log(range);
     const arr = [];
     let max = 0;
 
     for (let index = 0; index < 56; index += 7) {
       const a = await this.workoutService.getCountPerWeek(id, date);
+      console.log('aaa', a);
       if (a > max) max = a;
+
       const obj = {};
       const end = new Date(date);
       const start = new Date(date);
-      end.setDate(end.getDate() + 7);
+      end.setDate(end.getDate() + 6);
 
       obj['start'] = start;
       obj['end'] = end;
@@ -62,6 +65,7 @@ export class WorkoutController {
       }
 
       arr.push(obj);
+
       date.setDate(date.getDate() + 7);
     }
 
@@ -77,14 +81,13 @@ export class WorkoutController {
       createdAt: new Date(),
       userId: body.userId,
     });
-    const sets = await this.setService.getByWorkout(body.id);
+    const sets = await this.setService.getByWorkout(workout.id);
 
     let matches = sets.filter(
       (set) => !body.exercises.some((ex) => set.exerciseId === ex.id),
     );
     const matchIds = matches.reduce((res, u) => [...res, u.id], []);
     const exercisesToDelete = [...new Set(matchIds)];
-
     if (!!exercisesToDelete.length)
       exercisesToDelete.forEach(
         async (setId) => await this.setService.deleteById(setId),
