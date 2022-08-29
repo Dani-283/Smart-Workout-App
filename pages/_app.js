@@ -10,8 +10,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { queryClient } from "@api/base";
 
 import { SessionProvider } from "next-auth/react";
-import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -29,9 +27,7 @@ function MyApp({ Component, pageProps }) {
         <QueryClientProvider client={queryClient}>
           <CssBaseline />
           <GlobalStyles />
-          {/* <Protected router={router}> */}
           <Component {...pageProps} />
-          {/* </Protected> */}
         </QueryClientProvider>
       </ThemeProvider>
     </SessionProvider>
