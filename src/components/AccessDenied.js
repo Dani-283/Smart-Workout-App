@@ -33,13 +33,7 @@ export default function AccessDenied() {
           </div>
         </div>
       </div>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      {/* <img
-        src="/login_image.jpg"
-        alt="Pattern Background"
-        layout="fill"
-        className={classes.styledPattern}
-      /> */}
+
       <div
         src="/login_image.jpg"
         alt="Pattern Background"
@@ -47,20 +41,6 @@ export default function AccessDenied() {
         className={classes.styledPattern}
       />
     </div>
-    // <div style={{ position: "fixed", width: "100%", height: "100%" }}>
-    //   <h1>Access Denied</h1>
-    //   <p>
-    //     <a
-    //       href="/api/auth/signin"
-    //       onClick={(e) => {
-    //         e.preventDefault();
-    //         signIn();
-    //       }}
-    //     >
-    //       You must be signed in to view this page
-    //     </a>
-    //   </p>
-    // </div>
   );
 }
 

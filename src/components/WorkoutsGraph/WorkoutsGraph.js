@@ -1,6 +1,6 @@
 import useFormatRange from "@hooks/useFormatRange";
 import useGetWorkoutsPerWeek from "@hooks/useGetWorkoutsPerWeek";
-import { endOfWeek } from "date-fns";
+import { differenceInCalendarDays, endOfWeek } from "date-fns";
 import {
   BarChart,
   Bar,
@@ -22,11 +22,10 @@ const WorkoutsGraph = ({ userData }) => {
 
   const date = new Date();
   const endWeek = endOfWeek(date, { weekStartsOn: 1 });
-  const dif = endWeek.getDay() - date.getDay();
-  console.log("dif", dif);
+  const dif = differenceInCalendarDays(endWeek, date);
+
   const range = EIGHT_WEEKS - dif;
 
-  console.log("range", range);
   const { data: graphData, isLoading } = useGetWorkoutsPerWeek(
     userData?.id,
     range
@@ -37,8 +36,6 @@ const WorkoutsGraph = ({ userData }) => {
   for (let i = 0; i < graphData?.max + 1; i++) {
     ticks.push(i + 1);
   }
-
-  console.log("grafi", graphData);
 
   return (
     <Card

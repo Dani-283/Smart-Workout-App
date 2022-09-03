@@ -135,18 +135,6 @@ const useStyles = makeStyles(
       "&:hover, &:focus": {
         outlineWidth: 0,
       },
-
-      // "& ::-webkit-outer-spin-button": {
-      //   "-webkit-appearance": "none",
-      //   margin: 0,
-      // },
-
-      // "& ::-webkit-inner-spin-button": {
-      //   "-webkit-appearance": "none",
-      //   margin: 0,
-      // },
-
-      // input::-webkit-inner-spin-button {
     },
     inputError: {
       border: `1px solid #D91A5B!important`,

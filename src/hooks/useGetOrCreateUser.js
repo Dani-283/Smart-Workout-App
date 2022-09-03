@@ -1,4 +1,3 @@
-import { useMutation } from "react-query";
 import userApi from "@api/user";
 import { useQuery } from "react-query";
 
@@ -16,14 +15,9 @@ const useGetOrCreateUser = (email, session) => {
       enabled: !!session,
     }
   );
-  // if (data) {
-  //   return { data };
-  // } else if (!!session && !data && !isLoading) {
 
   if (!!session && !data && !isLoading) {
-    console.log("zasto");
     return { data: createUser() };
-    // return { data };
   }
   return { data };
 };

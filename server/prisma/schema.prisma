@@ -43,11 +43,7 @@ model Exercise {
 model User {
   id                  Int             @id @default(autoincrement())
   createdAt           DateTime        @default(now())
-  nonce               Int?
-  email               String         @unique
-  password            String?
+  email               String          @unique
   displayName         String?         @unique @db.VarChar(256)
-  imageUrl            String?
-  verificationToken   String?         @unique
   Workouts            Workout[]
 }

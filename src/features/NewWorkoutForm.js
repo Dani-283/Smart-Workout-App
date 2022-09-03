@@ -64,7 +64,6 @@ const NewWorkoutForm = ({ userData }) => {
 
   const create = async (values) => {
     const copy = [...exercises];
-    console.log("at u");
     copy.map((ex) =>
       ex.sets.map((set) =>
         Object.entries(values).find((e) => {
@@ -93,8 +92,16 @@ const NewWorkoutForm = ({ userData }) => {
     queryClient.invalidateQueries(["workouts", userData?.id]);
     queryClient.invalidateQueries(["sets", workout.id]);
     queryClient.invalidateQueries(["workouts-per-week", workout.userId]);
+    exercises.forEach((ex) =>
+      ex.sets.forEach((set) =>
+        queryClient.invalidateQueries([
+          "prev",
+          removeRdfPrefix(ex.id),
+          set.order,
+        ])
+      )
+    );
 
-    console.log("ode?");
     router.push("/?tab=history");
   };
 
@@ -212,10 +219,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 18,
     borderColor: "red",
     marginTop: 20,
-
-    // [theme.breakpoints.down(theme.breakpoints.values.sm)]: {
-    //   marginLeft: "auto",
-    // },
   },
 }));
 

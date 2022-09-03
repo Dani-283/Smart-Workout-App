@@ -9,8 +9,6 @@ const openedMixin = (theme) => ({
     duration: theme.transitions.duration.enteringScreen,
   }),
   overflowX: "hidden",
-
-  // "& >ul": { borderRight: "1px solid rgba(0, 0, 0, 0.12)", height: "100%" },
 });
 
 const closedMixin = (theme) => ({
@@ -66,7 +64,6 @@ export const Drawer = styled(MuiDrawer, {
   flexShrink: 0,
   whiteSpace: "nowrap",
   boxSizing: "border-box",
-  // display: "none",
 
   ...(open && {
     ...openedMixin(theme),

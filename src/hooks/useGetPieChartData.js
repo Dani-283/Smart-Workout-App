@@ -1,4 +1,3 @@
-import { endOfWeek, startOfWeek } from "date-fns";
 import { useMemo } from "react";
 import useCountTargetMuscles from "@hooks/useCountTargetMuscles";
 import useFormatForPieChart from "@hooks/useFormatForPieChart";
@@ -10,17 +9,13 @@ const useGetPieChartData = (start, end, user) => {
     start,
     end
   );
-  console.log(workouts);
   const { ids } = useMemo(() => {
     const ids = workouts?.reduce((id, workout) => [...id, workout.id], []);
     return { ids };
   }, [workouts]);
 
   const { data: sets, isLoading: isLoadingSets } = useGetSetsByWorkoutIds(ids);
-  const { count, max, isLoading: isLoadingCount } = useCountTargetMuscles(sets);
-
-  console.log(sets);
-  console.log(count);
+  const { count, isLoading: isLoadingCount } = useCountTargetMuscles(sets);
 
   const isLoading = isLoadingCount || isLoadingSets || isLoadingWrkts;
 

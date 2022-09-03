@@ -132,12 +132,6 @@ const useStyles = makeStyles((theme) => ({
       paddingInline: 12,
     },
 
-    // "& h3": {
-    //   [theme.breakpoints.up(theme.breakpoints.values.sm)]: {
-    //     fontSize: 26,
-    //   },
-    // },
-
     "& p ": {
       opacity: 0.8,
       fontSize: 16,

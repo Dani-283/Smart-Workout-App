@@ -25,8 +25,8 @@ WHERE { ?individual rdf:type/rdfs:subClassOf* graph:Isolation.
 
 export const GET_ALL_EXERCISES = `
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-    PREFIX graph: <http://www.semanticweb.org/đani/ontologies/2021/3/workout#>
-    SELECT DISTINCT * {
+PREFIX graph: <http://www.semanticweb.org/đani/ontologies/2021/3/workout#>
+SELECT DISTINCT * {
         { ?individual rdf:type/rdfs:subClassOf* graph:Exercise.
           ?individual graph:primaryMuscle ?primary.
           ?individual graph:secondaryMuscle ?secondary.
@@ -45,18 +45,15 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 export const GET_EXERCISE_LABEL = (id) => `
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX graph: <http://www.semanticweb.org/đani/ontologies/2021/3/workout#>
-SELECT  * WHERE 
-	{
-                ${id} rdfs:label ?label
-	}
+SELECT * 
+WHERE {
+        ${id} rdfs:label ?label}
 `;
 
 export const GET_EXERCISE_EQUIPMENT = (id) => `
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX graph: <http://www.semanticweb.org/đani/ontologies/2021/3/workout#>
-SELECT  * WHERE 
-	{
-                ${id} graph:usesEquipment ?equipment.	
-
-	}
+SELECT * 
+WHERE {
+        ${id} graph:usesEquipment ?equipment}
 `;

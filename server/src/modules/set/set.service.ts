@@ -34,15 +34,19 @@ export class SetService {
         },
       },
     });
-    return this.prisma.set.findFirst({
-      where: {
-        exerciseId: {
-          contains: id,
+    console.log(lastSet);
+    console.log(order);
+    if (lastSet) {
+      return this.prisma.set.findFirst({
+        where: {
+          exerciseId: {
+            contains: id,
+          },
+          workoutId: lastSet.workoutId,
+          order: Number(order),
         },
-        workoutId: lastSet.workoutId,
-        order: Number(order),
-      },
-    });
+      });
+    }
   }
 
   public createSet(set: Set): Promise<Set> {

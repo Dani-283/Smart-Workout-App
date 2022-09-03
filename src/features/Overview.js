@@ -8,7 +8,6 @@ import { useSession } from "next-auth/react";
 
 const Overview = () => {
   const { data: session, status } = useSession();
-  console.log(useGetOrCreateUser(session?.user.email, session));
 
   const { data: userData } = useGetOrCreateUser(session?.user.email, session);
 

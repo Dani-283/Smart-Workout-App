@@ -9,7 +9,9 @@
      xmlns:workout="http://www.semanticweb.org/đani/ontologies/2021/3/workout#"
      xmlns:untitled-ontology-3="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#"
      xmlns:untitled-ontology-8="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-8#">
-    <owl:Ontology rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout"/>
+    <owl:Ontology rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout">
+        <rdfs:comment>Ontologija znanja o fizičkim vježbama</rdfs:comment>
+    </owl:Ontology>
     
 
 
@@ -41,6 +43,7 @@
         <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Exercise"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+        <owl:propertyDisjointWith rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#secondaryMuscle"/>
     </owl:ObjectProperty>
     
 
@@ -114,13 +117,13 @@
     <owl:Class rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Exercise">
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#primaryMuscle"/>
-                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#hasPosition"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Position"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#secondaryMuscle"/>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#primaryMuscle"/>
                 <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
             </owl:Restriction>
         </rdfs:subClassOf>
@@ -128,6 +131,18 @@
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#hasPosition"/>
                 <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Position"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#primaryMuscle"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#secondaryMuscle"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -140,6 +155,34 @@
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#usesLimbs"/>
                 <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Limbs"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#hasPosition"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Position"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#primaryMuscle"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/untitled-ontology-3#TargetMuscle"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#usesEquipment"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Equipment"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#usesLimbs"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Limbs"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -194,6 +237,7 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Squat_pattern">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Compound"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Any exercise that has feet connecting to some surface and includes flexion of the knee joint in a higher degree than the hip joint</rdfs:comment>
     </owl:Class>
     
 
@@ -545,7 +589,6 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#LatPulldown">
         <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Vertical_pull"/>
-        <workout:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Seated"/>
         <workout:primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Lats"/>
         <workout:secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Bicep"/>
         <workout:secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Upper_back"/>
@@ -655,6 +698,15 @@
     
 
 
+    <!-- http://www.semanticweb.org/đani/ontologies/2021/3/workout#Pistol_squat -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Pistol_squat">
+        <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Squat_pattern"/>
+        <workout:primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Quadriceps"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.semanticweb.org/đani/ontologies/2021/3/workout#Plank -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Plank">
@@ -667,7 +719,6 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Pull_up">
         <rdf:type rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Vertical_pull"/>
-        <workout:hasPosition rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Hanging"/>
         <workout:primaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Lats"/>
         <workout:secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Bicep"/>
         <workout:secondaryMuscle rdf:resource="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Upper_back"/>
@@ -851,6 +902,64 @@
             <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Vertical_pull"/>
             <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Vertical_push"/>
         </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDifferent"/>
+        <owl:distinctMembers rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Abs"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Anterior_delts"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Barbell"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Barbell_row"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Barbell_squat"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Bench_press"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Bent_over"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Bicep"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Bilateral"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Bodyweight"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Bulgarian_split_squat"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Cable_crunch"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Cable_lateral_raise"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Cable_overhead_extension"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Calf"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Calf_raise"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Chest"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Deadlift"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Dumbbell"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Dumbbell_Shoulder_press"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Dumbbell_press"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Dumbell_curl_seated"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Dumbell_row"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Glutes"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Hamstrings"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Hanging"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Hip_thrust"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Incline_Bench_press"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#LatPulldown"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Lats"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Laying"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Leg_curl"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Leg_extension"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Leg_press"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Leg_raise"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Machine"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Middle_delts"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#One_arm_cable_row"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Plank"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Pull_up"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Push_up"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Quadriceps"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Rear_delts"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Romanian_Deadlift"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Seated"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Standing"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Tricep"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Unilateral"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Upper_back"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Upper_chest"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Weighted_Bodyweight"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Weighted_Pull_up"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/đani/ontologies/2021/3/workout#Weighted_push_up"/>
+        </owl:distinctMembers>
     </rdf:Description>
 </rdf:RDF>
 

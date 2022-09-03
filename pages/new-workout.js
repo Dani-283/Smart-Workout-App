@@ -9,11 +9,9 @@ import { useSession } from "next-auth/react";
 
 const NewWorkout = () => {
   const { data: session, status } = useSession();
-  console.log(useGetOrCreateUser(session?.user.email, session));
 
   const { data: userData } = useGetOrCreateUser(session?.user.email, session);
   if (typeof window !== "undefined" && status === "loading") return null;
-  console.log(userData, "data");
   if (!session) {
     return (
       <Layout workout>

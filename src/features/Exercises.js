@@ -20,8 +20,6 @@ const Exercises = () => {
     return { ids };
   }, [workouts]);
 
-  // const { data: sets } = useGetSetsByWorkoutIds(ids);
-
   const { data: sets } = useGetSetsByWorkout(115);
   const count = useCountTargetMuscles(sets);
 

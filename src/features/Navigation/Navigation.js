@@ -30,7 +30,6 @@ const Navigation = ({ content, workout }) => {
 
   const loading = typeof window !== "undefined" && status === "loading";
   const show = session && status !== "loading" && typeof window !== "undefined";
-  console.log(show, "ss");
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState();
@@ -108,7 +107,7 @@ const Navigation = ({ content, workout }) => {
         {session && <DrawerHeader />}
         {workout ? (
           content
-        ) : loading ? null : show ? ( // TABS.map((current) => current.id === value && current.component)
+        ) : loading ? null : show ? (
           TABS.map((current) => current.id === value && current.component)
         ) : (
           <AccessDenied />

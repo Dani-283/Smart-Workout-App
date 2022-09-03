@@ -19,12 +19,6 @@ export class ExerciseController {
     return await this.exerciseService.getExercises();
   }
 
-  // @Get(':id')
-  // async getExcercise(@Param() params): Promise<Exercise> {
-  //   const id = Number(params.id);
-  //   return await this.exerciseService.getExercise(id);
-  // }
-
   @Get('multiple-by-ids')
   async getAllFromIds(@Request() req): Promise<Exercise[]> {
     if (!req.query.ids) {

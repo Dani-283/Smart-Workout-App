@@ -123,6 +123,15 @@ const NewWorkoutFormo = ({ data, workout, userData }) => {
     queryClient.invalidateQueries(["workout", workout.id]);
     queryClient.invalidateQueries(["workouts", userData?.id]);
     queryClient.invalidateQueries(["workouts-per-week", workout.userId]);
+    exercises.forEach((ex) =>
+      ex.sets.forEach((set) =>
+        queryClient.invalidateQueries([
+          "prev",
+          removeRdfPrefix(ex.id),
+          set.order,
+        ])
+      )
+    );
 
     setEditable(false);
   };
@@ -301,9 +310,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 18,
     borderColor: "red",
     margin: theme.spacing(2.5, 0),
-    // [theme.breakpoints.down(theme.breakpoints.values.sm)]: {
-    //   marginLeft: "auto",
-    // },
   },
 
   edit: {

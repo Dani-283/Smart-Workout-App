@@ -16,7 +16,6 @@ export class WorkoutService {
     endDate.setDate(endDate.getDate() + 6);
     startDateHours.setUTCHours(0, 0, 0, 0);
 
-    console.log(endDate);
     return this.prisma.workout.count({
       where: { userId, createdAt: { gte: startDateHours, lte: endDate } },
     });
@@ -43,14 +42,6 @@ export class WorkoutService {
   }
 
   public createWorkout(workout: Workout): Promise<Workout> {
-    // return this.prisma.workout.create({
-    //   data: {
-    //     title: workout.title,
-    //     description: workout.description,
-    //     createdAt: workout.createdAt,
-    //     userId: workout.userId,
-    //   },
-    // });
     return this.prisma.workout.upsert({
       create: {
         title: workout.title,

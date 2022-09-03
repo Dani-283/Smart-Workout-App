@@ -28,7 +28,6 @@ export default function Login({ setToken }) {
     e.preventDefault();
   };
 
-  console.log("tu?");
   return (
     <div className="login-wrapper">
       <h1>Please Log In</h1>

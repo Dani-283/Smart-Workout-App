@@ -20,7 +20,6 @@ const FormExerciseSet = ({
   const { setFieldValue, initialValues } = useFormikContext();
   const classes = useStyles();
   const { data } = useGetPrevWeight(removeRdfPrefix(exercise.id), i + 1);
-  console.log(data);
 
   return (
     <Box display="flex" justifyContent="space-between" gap={0.75}>

@@ -46,12 +46,10 @@ const NavMobile = ({ value, show, open, setOpen, setValue }) => {
           classes={{ selected: classes.selected, root: classes.tabButton }}
           value={item.id}
           label={
-            // <div className={classes.tabButton}>
             <>
               <div>{item.icon}</div>
               <Typography>{item.title}</Typography>
             </>
-            // </div>
           }
         />
       ))}

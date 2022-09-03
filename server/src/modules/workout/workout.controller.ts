@@ -19,10 +19,6 @@ export class WorkoutController {
   ) {}
 
   @Get(':userId')
-  // getWorkouts(@Param() params, @Request() req) {
-  //   const id = Number(params.userId);
-  //   return this.workoutService.getManyByUser(id, req.query.range);
-  // }
   getWorkouts(@Param() params, @Request() req) {
     const id = Number(params.userId);
     const begin = req.query.range;
@@ -42,14 +38,12 @@ export class WorkoutController {
     const range = Number(req.query.range);
     const date = new Date();
     date.setDate(date.getDate() - range);
-    console.log(date);
-    console.log(range);
+
     const arr = [];
     let max = 0;
 
     for (let index = 0; index < 56; index += 7) {
       const a = await this.workoutService.getCountPerWeek(id, date);
-      console.log('aaa', a);
       if (a > max) max = a;
 
       const obj = {};

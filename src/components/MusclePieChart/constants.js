@@ -1,4 +1,11 @@
-import { endOfMonth, endOfWeek, startOfMonth, startOfWeek } from "date-fns";
+import {
+  differenceInCalendarDays,
+  endOfMonth,
+  endOfWeek,
+  setDate,
+  startOfMonth,
+  startOfWeek,
+} from "date-fns";
 
 const getRange = (dif, month) => {
   const date = new Date();
@@ -9,9 +16,8 @@ const getRange = (dif, month) => {
     startOn = startOfMonth(date, { weekStartsOn: 1 });
     endOn = endOfMonth(date, { weekStartsOn: 1 });
 
-    const start = date.getDate() - startOn.getDate();
-    const end = date.getDate() - endOn.getDate();
-    console.log(end);
+    const start = differenceInCalendarDays(date, startOn);
+    const end = differenceInCalendarDays(date, endOn);
 
     return { start, end };
   } else {
@@ -20,9 +26,9 @@ const getRange = (dif, month) => {
     startOn = startOfWeek(startDate, { weekStartsOn: 1 });
     endOn = endOfWeek(startDate, { weekStartsOn: 1 });
 
-    const start = date.getDate() - startOn.getDate();
-    const end = date.getDate() - endOn.getDate();
-    console.log(end);
+    const start = differenceInCalendarDays(date, startOn);
+    const end = differenceInCalendarDays(date, endOn);
+
     return { start, end };
   }
 };
