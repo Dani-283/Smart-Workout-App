@@ -34,8 +34,7 @@ export class SetService {
         },
       },
     });
-    console.log(lastSet);
-    console.log(order);
+
     if (lastSet) {
       return this.prisma.set.findFirst({
         where: {

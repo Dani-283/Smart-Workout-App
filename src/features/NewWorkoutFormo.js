@@ -221,7 +221,7 @@ const NewWorkoutFormo = ({ data, workout, userData }) => {
               </Box>
             </Card>
             {editable && (
-              <Box display="flex" gap={3} justifyContent="center">
+              <Box display="flex" gap={3} className={classes.container}>
                 <Button
                   disabled={!dirty}
                   type="submit"
@@ -274,6 +274,12 @@ const useStyles = makeStyles((theme) => ({
   editIcon: {
     [theme.breakpoints.down(theme.breakpoints.values.sm)]: {
       fontSize: 18,
+    },
+  },
+
+  container: {
+    [theme.breakpoints.down(theme.breakpoints.values.sm)]: {
+      justifyContent: "center",
     },
   },
 

@@ -42,7 +42,8 @@ export default function MuscleChart({ workoutId }) {
           width={500}
           height={300}
           data={data}
-          barSize={matches ? 90 : 55}
+          barGap={20}
+          maxBarSize={90}
           margin={{
             top: 5,
             right: 30,

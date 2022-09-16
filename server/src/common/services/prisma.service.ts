@@ -6,10 +6,6 @@ export class PrismaService
   extends PrismaClient
   implements OnModuleInit, OnModuleDestroy
 {
-  // USE THIS IF YOU WANT TO LOG GENERATED SQL QUERY
-  // constructor() {
-  //   super({ log: [{ emit: 'stdout', level: 'query' }] });
-  // }
   async onModuleInit() {
     await this.$connect();
   }

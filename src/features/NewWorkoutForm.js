@@ -151,7 +151,7 @@ const NewWorkoutForm = ({ userData }) => {
                 )}
               </Box>
             </Card>
-            <Box display="flex" gap={3} justifyContent="center">
+            <Box display="flex" gap={3} className={classes.container}>
               <Button
                 disabled={!dirty || !exercises.length}
                 type="submit"
@@ -201,6 +201,12 @@ const useStyles = makeStyles((theme) => ({
   card: {
     [theme.breakpoints.down(theme.breakpoints.values.sm)]: {
       padding: theme.spacing(1),
+    },
+  },
+
+  container: {
+    [theme.breakpoints.down(theme.breakpoints.values.sm)]: {
+      justifyContent: "center",
     },
   },
 

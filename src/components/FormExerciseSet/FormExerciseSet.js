@@ -56,7 +56,8 @@ const FormExerciseSet = ({
           </Typography>
           {data ? (
             <Typography className={classes.prev} align="center">
-              {data.weight} x {data.reps}
+              {data.weight}
+              {data.weight ? "kg x" : null} {data.reps}
             </Typography>
           ) : (
             <Typography align="center">-</Typography>

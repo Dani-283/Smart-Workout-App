@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#"
+     xml:base="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:untitled-ontology-17="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#primaryMuscle -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#primaryMuscle">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#Exercise"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#TargetMuscle"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#Compound -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#Compound">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#Exercise"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#Isolation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#Equipment -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#Equipment"/>
+    
+
+
+    <!-- http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#Exercise -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#Exercise"/>
+    
+
+
+    <!-- http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#Isolation -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#Isolation">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#Exercise"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#Limbs -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#Limbs"/>
+    
+
+
+    <!-- http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#Position -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#Position"/>
+    
+
+
+    <!-- http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#Squat_pattern -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#Squat_pattern">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#Compound"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#TargetMuscle -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#TargetMuscle"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#arms -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#arms">
+        <rdf:type rdf:resource="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#TargetMuscle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#legs -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#legs">
+        <rdf:type rdf:resource="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#TargetMuscle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#yl -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#yl">
+        <rdf:type rdf:resource="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#Squat_pattern"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#Equipment"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#Exercise"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#Limbs"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#Position"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/danim/ontologies/2022/8/untitled-ontology-17#TargetMuscle"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
